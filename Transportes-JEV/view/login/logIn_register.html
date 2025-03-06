@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Log In-Registro</title>
+</head>
+<body>
+    
+    <main>
+        <div class="container">
+            <div class="back-div">
+                <div class="logIn-back-div">
+                    <h3>¿Ya tienes una cuenta?</h3>
+                    <p>Inicia Sesión para entrar en la página</p>
+                    <button id="btn-logIn">Iniciar Sesión</button>
+                </div>
+
+                <div class="register-back-div">
+                    <h3>¿Aún no tienes cuenta?</h3>
+                    <p>Regístrate para que puedas iniciar sesión</p>
+                    <button id="btn-register">Regístrate</button>
+                </div>
+            </div>
+
+            <!--Formulario Log In y Registro-->
+            <div class="logIn-Register-container">
+
+                <!--Formulario Log in-->
+                <form action="./inicio-registro/inicioSesion.php" method="POST" class="logIn-form">
+                    <h2>Iniciar Sesión</h2>
+                    <input type="email" placeholder="Correo Electrónico" name="correo" required>
+                    <input type="password" placeholder="Contraseña" name="password" required>
+                    <button type="submit">Entrar</button>
+                </form>
+
+
+                <!--Formulario Registro -->
+                <form action="./inicio-registro/registro_usuario.php" method="POST" class="register-form formulario" id="formulario">
+                    <h2>Regístrate</h2>
+
+                    <!-- Grupo: Nombre -->
+                    <div class="formulario__grupo" id="grupo__nombre">
+                        <label for="nombre" class="formulario__label"></label>
+                        <div class="formulario__grupo-input">
+                            <input type="text" class="formulario__input" name="nombre" name="nombre_usuario" id="nombre" placeholder="Nombre" required>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">El nombre solo puede contener letras y espacios.</p>
+                    </div>
+
+                    <!-- Grupo: Apellido -->
+                    <div class="formulario__grupo" id="grupo__apellido">
+                        <label for="apellido" class="formulario__label"></label>
+                        <div class="formulario__grupo-input">
+                            <input type="text" class="formulario__input" name="apellido" name="apellido_usuario" id="apellido" placeholder="Apellido" required>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">El apellido solo puede contener letras y espacios.</p>
+                    </div>
+               
+                    <!-- Grupo: Correo Electronico -->
+                    <div class="formulario__grupo" id="grupo__correo">
+                        <label for="correo" class="formulario__label"></label>
+                        <div class="formulario__grupo-input">
+                            <input type="email" class="formulario__input" name="correo" name="correo_usuario" id="correo" placeholder="Correo Electrónico" required>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">El correo debe contener @, puede contener letras, numeros, puntos, guiones.</p>
+                    </div>
+
+                    <!-- Grupo: Contraseña -->
+                    <div class="formulario__grupo" id="grupo__password">
+                        <label for="password" class="formulario__label"></label>
+                        <div class="formulario__grupo-input">
+                            <input type="password" class="formulario__input" name="password" name="contrasena_usuario" id="password" placeholder="Contraseña" required>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
+                    </div>
+
+                    <!-- Grupo: Contraseña 2 -->
+                    <div class="formulario__grupo" id="grupo__password2">
+                        <label for="password2" class="formulario__label"></label>
+                        <div class="formulario__grupo-input">
+                            <input type="password" class="formulario__input" name="password2" name="contrasena_verificada" id="password2" placeholder="Repetir Contraseña" required>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">Ambas contraseñas deben ser iguales.</p>
+                    </div>
+    
+                    <!--Grupo Boton Error y Send -->
+                    <div class="formulario__mensaje" id="formulario__mensaje">
+                        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b>Error: Completa todo el formulario</p>
+                    </div>
+
+                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                        <button type="submit" class="formulario__btn">Registrar</button>
+                        <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Usuario registrado exitosamente!</p>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../controller/inicio-registro/formulario.js"></script>
+    <script src="https://kit.fontawesome.com/c182496823.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-image: url(assets/fondo-2.jpg);
+    background-position: bottom;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding-top: 250px;
+}
+
+main {
+    width: 100%;
+    padding: 5%;
+    margin: auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+.back-div {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background-color: rgb(15 13 31 / 50%);
+}
+
+.back-div div {
+    margin: 100px 40px;
+    color: #fff;
+    transition: all 500ms;
+}
+
+.back-div div h3 {
+    font-weight: 400;
+    font-size: 26px;
+}
+
+.back-div div p,
+.back-div div button {
+    margin-top: 30px;
+}
+
+.back-div button {
+    padding: 10px 40px;
+    border: 2px solid #fff;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+    transition: all 300ms;
+}
+
+.back-div button:hover {
+    background: #fff;
+    color: #8f6415;
+}
+
+/* Formularios */
+.logIn-Register-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    top: -185px;
+    left: 10px;
+    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+.logIn-Register-container form {
+    width: 100%;
+    padding: 80px 20px;
+    background-color: #fff;
+    position: absolute;
+    border-radius: 20px;
+}
+
+.logIn-Register-container h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8f6415;
+}
+
+/* Inputs */
+.logIn-Register-container form input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 3px solid transparent;
+    border-radius: 3px;
+    background: #f2f2f2;
+    font-size: 16px;
+    outline: none;
+    height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+}
+
+.formulario__input {
+	transition: .3s ease all;
+}
+
+.formulario__input:focus {
+	border: 1px solid #080634;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.logIn-Register-container form button {
+    height: 45px;
+    font-size: 15px;
+	line-height: 45px;
+	width: 100%;
+	background: #8f6415;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .1s ease all;
+}
+
+.logIn-Register-container form button:hover {
+    background-color: #302e56;
+    color: #fff;
+}
+
+.logIn-form {
+    opacity: 1;
+    display: block;
+}
+
+.register-form {
+    display: none;
+}
+
+
+
+/* Otros */
+
+.formulario__grupo-input {
+	position: relative;
+}
+
+.formulario__input-error {
+	font-size: 12px;
+	margin-bottom: 0;
+	display: none;
+}
+
+.formulario__input-error-activo {
+	display: block;
+    margin-bottom: 20px;
+}
+
+.formulario__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 15px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+    margin-bottom: 20px;
+}
+
+.formulario__checkbox {
+	margin-right: 10px;
+}
+
+.formulario__grupo-terminos, 
+.formulario__mensaje,
+.formulario__grupo-btn-enviar {
+	grid-column: span 2;
+}
+
+.formulario__mensaje {
+	height: 45px;
+	line-height: 45px;
+	background: #F66060;
+	padding: 0 15px;
+	border-radius: 3px;
+	display: none;
+}
+
+.formulario__mensaje-activo {
+	display: block;
+    margin-bottom: 20px;
+}
+
+.formulario__mensaje p {
+	margin: 0;
+}
+
+.formulario__grupo-btn-enviar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.formulario__btn:hover {
+	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+}
+
+.formulario__mensaje-exito {
+	font-size: 14px;
+    margin-top: 10px;
+	color: #119200;
+	display: none;
+}
+
+.formulario__mensaje-exito-activo {
+	display: block;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formulario__grupo-correcto .formulario__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__label {
+	color: #bb2929;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__input {
+	border: 3px solid #bb2929;
+}
+
+
+
+
+/* RESPONSIVE */
+@media screen and (max-width: 850px){
+    main {
+        margin-top: 50px;
+    }
+
+    .back-div {
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .back-div div {
+        margin: 0px;
+        position: absolute;
+    }
+
+    /* Formulario */
+
+    .logIn-Register-container {
+        top: -10px;
+        left: -5px;
+        margin: auto;
+    }
+    
+    .logIn-Register-container form {
+        position: relative;
+    }
+}
+
+
+
+/* ----- -----  Mediaqueries ----- ----- */
+@media screen and (max-width: 800px) {
+	.formulario {
+		grid-template-columns: 1fr;
+	}
+
+	.formulario__grupo-terminos, 
+	.formulario__mensaje,
+	.formulario__grupo-btn-enviar {
+		grid-column: 1;
+	}
+
+	.formulario__btn {
+		width: 100%;
+	}
+}
