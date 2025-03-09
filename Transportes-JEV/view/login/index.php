@@ -12,7 +12,9 @@
       <div class="box">
         <div class="inner-box">
           <div class="forms-wrap">
-            <form action="index.html" autocomplete="off" class="sign-in-form">
+            
+            <!-- Log In Form -->
+            <form action="../../controller/actions.php" method="POST" autocomplete="off" class="sign-in-form">
               <div class="logo">
                 <img src="./assets/img/logo.png" alt="Transportes JEV" />
                 <h4>Transportes JEV</h4>
@@ -46,7 +48,8 @@
                   />
                   <label>Contraseña</label>
                 </div>
-
+                
+                <input type="hidden" name="hidden" value="" />
                 <input type="submit" value="Iniciar Sesión" class="sign-btn" />
 
                 <p class="text">
@@ -56,7 +59,8 @@
               </div>
             </form>
 
-            <form action="index.html" autocomplete="off" class="sign-up-form" class="register-form formulario" id="formulario">
+            <!-- Register Form -->
+            <form action="../../controller/actions.php" method="POST" autocomplete="off" class="sign-up-form" class="register-form formulario" id="formulario">
               <div class="logo">
                 <img src="./assets/img/logo.png" alt="easyclass" />
                 <h4>Transportes JEV</h4>
@@ -117,7 +121,10 @@
                     <label for="correo" class="formulario__label">Correo</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El correo puede contener letras, números, puntos, guiones</p>
+                  <p class="formulario__input-error">El correo admite letras, números, puntos y guiones</p>
+
+                  <!-- Div para mensaje de error -->
+                  <div class="error-message"></div>
                 </div>
 
 
@@ -140,7 +147,24 @@
                   <p class="formulario__input-error">La contraseña debe contener mínimo 8 dígitos</p>
                 </div>
 
+                <input type="hidden" name="hidden" value="1" />
+              
+                <?php if (isset($_GET['usuarioRegistrado']) && $_GET['usuarioRegistrado'] == 1) { ?>
+                  <div class="success-message">
+                    ¡Registro Exitoso! Ahora puedes iniciar sesión.
+                  </div>
+                <?php } ?>
+
+                <?php if (isset($_GET['errorRegistro']) && $_GET['errorRegistro'] == 2) { ?>
+                  <div class="failed-registration-message">
+                    ¡Ups! Registro fallido. Intenta nuevamente.
+                  </div>
+                <?php } ?>
+
                 <input type="submit" value="Registrar" class="sign-btn" />
+
+
+
 
                 <p class="text">
                   Cuidamos cada kilómetro de tu carga.
@@ -179,7 +203,7 @@
     </main>
 
     <!-- Javascript file -->
-    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/logIn.js"></script>
 
     <!-- Iconos de Font Awesome-->
     <script src="https://kit.fontawesome.com/c182496823.js" crossorigin="anonymous"></script>
@@ -187,6 +211,6 @@
     <!-- Iconos de Ionic-->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  
+
   </body>
 </html>

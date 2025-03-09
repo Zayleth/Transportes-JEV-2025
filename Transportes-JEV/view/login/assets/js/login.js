@@ -49,28 +49,29 @@ const entrada = document.querySelectorAll('#formulario input');
 
 const expresiones = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	apellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	password: /^.{8,50}$/, // 8 a 50 digitos.
 	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+	password: /^.{8,50}$/ // 8 a 50 digitos.
+	//apellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	//telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 }
 
 const campos = {
 	nombre: false,
-	apellido: false,
-	password: false,
 	correo: false,
-	telefono: false
+	password: false
+	//apellido: false,
+	//telefono: false
 }
 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
+		
 		case "nombre":
 			validarCampo(expresiones.nombre, e.target, 'nombre');
 		break;
 
-		case "apellido":
-			validarCampo(expresiones.apellido, e.target, 'apellido');
+		case "correo":
+			validarCampo(expresiones.correo, e.target, 'correo');
 		break;
 
 		case "password":
@@ -78,17 +79,24 @@ const validarFormulario = (e) => {
 			validarPassword2();
 		break;
 
+		/*
+		case "apellido_usuario":
+			validarCampo(expresiones.apellido, e.target, 'apellido');
+		break;
+		*/
+
+		/*
 		case "password2":
 			validarPassword2();
 		break;
+		*/
 
-		case "correo":
-			validarCampo(expresiones.correo, e.target, 'correo');
-		break;
-
+		/*
 		case "telefono":
 			validarCampo(expresiones.telefono, e.target, 'telefono');
 		break;
+		*/
+
 	}
 }
 
@@ -180,3 +188,83 @@ icono.addEventListener("click", () => {
     }
 });
 
+
+
+// Al redirigir al usuario nuevamente al index Log In. Cae directamente en el register form con el "mensaje de error"
+// Al redirigir al usuario nuevamente al index Log In. Cae directamente en el register form con el "Registro Exitoso"
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+
+    // Detecta si el parámetro "show=register" está en la URL
+    if (params.get("show") === "register") {
+        const main = document.querySelector("main"); // Selecciona el contenedor principal
+        if (main) {
+            main.classList.add("sign-up-mode"); // Muestra el formulario de registro
+
+            // Mostrar el mensaje de error si "error" está presente
+            const errorMessage = params.get("error");
+            if (errorMessage === "correoExistente") {
+                const errorDiv = document.querySelector(".error-message");
+                if (errorDiv) {
+                    errorDiv.textContent = "El correo ya está registrado. Por favor, utiliza otro.";
+                    errorDiv.style.display = "block"; // Asegúrate de mostrar el mensaje de error
+                
+				} else {
+					// Asegúrate de ocultar el mensaje si no hay error
+					const errorDiv = document.querySelector(".error-message");
+					if (errorDiv) {
+						errorDiv.style.display = "none";
+					}	
+            	}
+
+            // Mostrar el mensaje de éxito si "usuarioRegistrado" está presente
+            const successMessage = params.get("usuarioRegistrado");
+            if (successMessage === "1") {
+				console.log("Registro Exitoso");
+            }
+
+			// Mostrar el mensaje de error si -> registroFallido
+            const failMessage = params.get("errorRegistro");
+            if (failMessage === "2") {
+				console.log("¡Ups! Registro fallido. Intenta nuevamente.");
+            }
+
+        	}
+    	}
+	}
+});
+
+
+// Limpiar el "mensaje de error" cuando el usuario empiece a escribir en el input (correo)
+document.addEventListener("DOMContentLoaded", () => {
+    const emailInput = document.getElementById("correo"); // Selecciona el input de correo
+    const errorDiv = document.querySelector(".error-message"); // Selecciona el contenedor del mensaje de error
+
+    // Evento para ocultar el mensaje de error cuando el usuario escribe
+    emailInput.addEventListener("input", () => {
+        if (errorDiv) {
+        	errorDiv.style.display = "none"; // Oculta el mensaje de error
+            errorDiv.textContent = ""; // Limpia el contenido del mensaje
+        }
+    });
+});
+
+// Eliminación de "Usuario registrado correctamente" luego de 10s
+document.addEventListener("DOMContentLoaded", () => {
+	const successMessage = document.querySelector(".success-message");
+	const failMessage = document.querySelector(".failed-registration-message");
+  
+	if (successMessage) {
+	  setTimeout(() => {
+		successMessage.style.display = "none"; // Oculta el mensaje después de 10 segundos
+	  }, 10000); // 10000 ms = 10 segundos
+	}
+
+	if (failMessage) {
+		setTimeout(() => {
+		  failMessage.style.display = "none"; // Oculta el mensaje después de 10 segundos
+		}, 10000); // 10000 ms = 10 segundos
+	}
+
+});
+  

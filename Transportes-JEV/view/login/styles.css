@@ -141,7 +141,7 @@ form.sign-up-form {
 
 .input-wrap {
   position: relative;
-  height: 45px;
+  height: 37px;
   margin-bottom: 2rem;
 }
 
@@ -439,6 +439,62 @@ main.sign-up-mode .carousel {
 
 /* Otros */
 
+/* Error correo existente */
+.error-message {
+  display: none;
+  color: #d9534f; /* Rojo */
+  background-color: #f8d7da; /* Fondo rosado claro */
+  border: 1px solid #f5c6cb; /* Borde rojo claro */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+}
+
+/* Transición de Log In form a Register form */
+.sign-in-form {
+  transform: translateX(0); /* Por defecto, muestra el formulario de login */
+}
+
+.sign-up-form {
+  transform: translateX(100%); /* Oculta el formulario de registro por defecto */
+}
+
+main.sign-up-mode .sign-in-form {
+  transform: translateX(-100%); /* Oculta el formulario de login */
+}
+
+main.sign-up-mode .sign-up-form {
+  transform: translateX(0); /* Muestra el formulario de registro */
+}
+
+/* Mensaje de éxito | Usuario registrado */
+.success-message {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 0.8rem;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Mensaje de error | Error al registrarse */
+.failed-registration-message {
+  color: #d9534f; /* Rojo */
+  background-color: #f8d7da; /* Fondo rosado claro */
+  border: 1px solid #f5c6cb; /* Borde rojo claro */
+  padding: 10px;
+  border-radius: 0.8rem;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 .formulario__grupo-input {
 position: relative;
 }
@@ -453,7 +509,7 @@ display: none;
   display: block;
   margin-top: 5px; /* Ajusta el margen según sea necesario */
   color: red; /* Color del texto para destacar el error */
-  font-size: 12px; /* Tamaño de fuente legible */
+  font-size: 10px; /* Tamaño de fuente legible */
   font-weight: normal; /* Opcional: asegura que el texto no sea demasiado grueso */
 }
 
