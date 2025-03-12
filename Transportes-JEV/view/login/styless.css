@@ -199,12 +199,12 @@ label {
 }
 
 .text {
-  color: #bbb;
+  color: #151111;
   font-size: 0.7rem;
 }
 
 .text a {
-  color: #bbb;
+  color: #151111;
   transition: 0.3s;
 }
 
@@ -450,7 +450,31 @@ main.sign-up-mode .carousel {
   border-radius: 5px;
   font-family: Arial, sans-serif;
   font-size: 10px;
+  font-weight: bold;
 }
+
+/* Mensaje de error de campos incorrectos | 1 mensaje general */
+.error-camposMessage {
+  display: none;
+  color: #d9534f; /* Rojo */
+  background-color: #f8d7da; /* Fondo rosado claro */
+  border: 1px solid #f5c6cb; /* Borde rojo claro */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Mensaje en base al input erróneo */
+.error-passwordMessage {
+  margin-top: 5px; /* Ajusta el margen según sea necesario */
+  color: red; /* Color del texto para destacar el error */
+  font-size: 10px; /* Tamaño de fuente legible */
+  font-weight: normal; /* Opcional: asegura que el texto no sea demasiado grueso */
+}
+
 
 /* Transición de Log In form a Register form */
 .sign-in-form {
@@ -482,8 +506,10 @@ main.sign-up-mode .sign-up-form {
   margin-bottom: 5px;
 }
 
-/* Mensaje de error | Error al registrarse */
-.failed-registration-message {
+/* Mensaje de error | Error al registrarse | Campos Incompletos */
+.failed-registration-message, 
+.failed-logIn-message,
+.input-error {
   color: #d9534f; /* Rojo */
   background-color: #f8d7da; /* Fondo rosado claro */
   border: 1px solid #f5c6cb; /* Borde rojo claro */

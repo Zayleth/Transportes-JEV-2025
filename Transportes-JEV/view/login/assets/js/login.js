@@ -39,33 +39,27 @@ bullets.forEach((bullet) => {
 });
 
 
-
 /*-----------------------------------------------*/
 /* Validacion de campos con expresiones regulares*/
 /*-----------------------------------------------*/
 
 const formulario = document.getElementById('formulario');
-const entrada = document.querySelectorAll('#formulario input');
+const entradas = document.querySelectorAll('#formulario input');
 
 const expresiones = {
-	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-	password: /^.{8,50}$/ // 8 a 50 digitos.
-	//apellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	//telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos
+  correo: /^[a-zA-Z0-9_.+-]+@(gmail\.com|hotmail\.com|outlook\.com|[a-zA-Z0-9-]+\.(org|com|net))$/,
+	password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/
 }
 
 const campos = {
 	nombre: false,
 	correo: false,
 	password: false
-	//apellido: false,
-	//telefono: false
 }
 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
-		
 		case "nombre":
 			validarCampo(expresiones.nombre, e.target, 'nombre');
 		break;
@@ -76,116 +70,144 @@ const validarFormulario = (e) => {
 
 		case "password":
 			validarCampo(expresiones.password, e.target, 'password');
-			validarPassword2();
 		break;
-
-		/*
-		case "apellido_usuario":
-			validarCampo(expresiones.apellido, e.target, 'apellido');
-		break;
-		*/
-
-		/*
-		case "password2":
-			validarPassword2();
-		break;
-		*/
-
-		/*
-		case "telefono":
-			validarCampo(expresiones.telefono, e.target, 'telefono');
-		break;
-		*/
-
 	}
 }
 
-/*
+/* Validacion de password | Caracteres especiales */
+
+const validarPassword = (password) => {
+  const errores = [];
+
+  // Regla: Al menos una letra minúscula
+  if (!/[a-z]/.test(password)) {
+      errores.push("Debe incluir al menos una letra minúscula.");
+  }
+
+  // Regla: Al menos una letra mayúscula
+  if (!/[A-Z]/.test(password)) {
+      errores.push("Debe incluir al menos una letra mayúscula.");
+  }
+
+  // Regla: Al menos un número
+  if (!/\d/.test(password)) {
+      errores.push("Debe incluir al menos un número.");
+  }
+
+  // Regla: Al menos un carácter especial
+  if (!/[!@#$%^&*]/.test(password)) {
+      errores.push("Debe incluir al menos un carácter especial (!@#$%^&*).");
+  }
+
+  // Regla: Longitud mínima de 8 caracteres
+  if (password.length < 8) {
+      errores.push("Debe tener al menos 8 caracteres.");
+  }
+
+  // Regla: Longitud máxima de 50 caracteres
+  if (password.length > 50) {
+      errores.push("Debe tener como máximo 50 caracteres.");
+  }
+
+  return errores;
+};
+
+// Escuchar los cambios en el campo de contraseña
+const passwordInput = document.getElementById("passwordRegister");
+const errorMessageP = document.getElementById("error-passwordMessage");
+
+passwordInput.addEventListener("input", () => {
+  const password = passwordInput.value;
+  const errores = validarPassword(password);
+
+  if (errores.length > 0) {
+      // Mostrar el primer error detectado
+      errorMessageP.innerText = errores[0];
+      errorMessageP.style.display = "block"; // Hacer visible el mensaje
+  } else {
+      // Ocultar el mensaje si no hay errores
+      errorMessageP.style.display = "none";
+  }
+});
+
+
 const validarCampo = (expresion, input, campo) => {
-	if(expresion.test(input.value)){
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
-		campos[campo] = true;
-	} else {
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
-		campos[campo] = false;
-	}
-}
+    // Obtener el grupo específico
+    const grupo = document.getElementById(`grupo__${campo}`);
+    const icono = document.querySelector(`#grupo__${campo} .formulario__validacion-estado`); // Selecciona el ícono específico
+    const error = grupo.querySelector(`.formulario__input-error`);
 
-*/
+    //console.log(`Validando el campo: ${campo}, Valor: ${input.value}`); // Muestra el campo y su valor
 
-
-const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
-        document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.remove('fa-times-circle');
-        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+        console.log(`${campo} es válido ✅`);
+        // Validación exitosa
+        grupo.classList.remove('formulario__grupo-incorrecto');
+        grupo.classList.add('formulario__grupo-correcto');
+        icono.classList.add('fa-check-circle'); // Cambia ícono a "correcto"
+        icono.classList.remove('fa-times-circle'); // Quita ícono de "incorrecto"
+        error.classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
-        document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} .formulario__validacion-estado`).classList.remove('fa-check-circle');
-        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+        console.log(`${campo} es inválido ❌`);
+        // Validación fallida
+        grupo.classList.add('formulario__grupo-incorrecto');
+        grupo.classList.remove('formulario__grupo-correcto');
+        icono.classList.add('fa-times-circle'); // Cambia ícono a "incorrecto"
+        icono.classList.remove('fa-check-circle'); // Quita ícono de "correcto"
+        error.classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }
 };
 
 
-/*
-
-const validarPassword2 = () => {
-	const inputPassword1 = document.getElementById('password');
-	const inputPassword2 = document.getElementById('password2');
-
-	if(inputPassword1.value !== inputPassword2.value){
-		document.getElementById(`grupo__password2`).classList.add('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__password2 i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__password2 i`).classList.remove('fa-check-circle');
-		document.querySelector(`#grupo__password2 .formulario__input-error`).classList.add('formulario__input-error-activo');
-		campos['password'] = false;
-	} else {
-		document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__password2`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__password2 i`).classList.remove('fa-times-circle');
-		document.querySelector(`#grupo__password2 i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__password2 .formulario__input-error`).classList.remove('formulario__input-error-activo');
-		campos['password'] = true;
-	}
-}
-
-*/
-
-entrada.forEach((input) => {
+entradas.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
 
 
-/* Funcionalidad - ojo password */
-const pass = document.getElementById("password");
-const icono = document.getElementById("password-eye");
+/*-----------------------------------------------*/
+/* Prevenir el envío si algún campo no es válido */
+/*-----------------------------------------------*/
 
-icono.addEventListener("click", () => {
-    if (pass.type === "password") {
-        pass.type = "text"; // Cambia el tipo a texto para mostrar la contraseña
-        icono.classList.remove("fa-eye"); // Elimina la clase de ojo abierto
-        icono.classList.add("fa-eye-slash"); // Agrega la clase de ojo cerrado
-    } else {
-        pass.type = "password"; // Cambia el tipo a contraseña para ocultarla
-        icono.classList.remove("fa-eye-slash"); // Elimina la clase de ojo cerrado
-        icono.classList.add("fa-eye"); // Agrega la clase de ojo abierto
-    }
+formulario.addEventListener('submit', (e) => {
+  const errorCamposMessageDiv = document.getElementById('error-camposMessage'); // Selecciona el contenedor del mensaje de error
+
+  // Verificar si todos los campos son válidos
+  if (!(campos.nombre && campos.correo && campos.password)) {
+      e.preventDefault(); // Detener el envío
+
+      // Mostrar el mensaje de error con estilos
+      errorCamposMessageDiv.innerText = "Completa todos los campos correctamente antes de enviar"; // Mensaje dinámico
+      errorCamposMessageDiv.style.display = "block"; // Hace visible el mensaje
+      //console.log("Formulario detenido debido a campos inválidos");
+  } else {
+      // Si todo es válido, asegura que el mensaje de error esté oculto
+      errorCamposMessageDiv.style.display = "none";
+      //console.log("Formulario enviado correctamente");
+  }
+});
+
+
+
+/* Funcionalidad - ojo password */
+document.addEventListener("DOMContentLoaded", () => {
+    const pass = document.getElementById("passwordRegister");
+    const icono = document.getElementById("password-eye");
+
+    icono.addEventListener("click", () => {
+        // Cambiar el tipo del input entre "password" y "text"
+        if (pass.type === "password") {
+            pass.type = "text"; // Mostrar la contraseña
+            icono.classList.remove("fa-eye"); // Eliminar clase de "ojo abierto"
+            icono.classList.add("fa-eye-slash"); // Agregar clase de "ojo cerrado"
+        } else {
+            pass.type = "password"; // Ocultar la contraseña
+            icono.classList.remove("fa-eye-slash"); // Eliminar clase de "ojo cerrado"
+            icono.classList.add("fa-eye"); // Agregar clase de "ojo abierto"
+        }
+    });
 });
 
 
@@ -253,7 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
 	const successMessage = document.querySelector(".success-message");
 	const failMessage = document.querySelector(".failed-registration-message");
-  
+	// const fail_LogIn_Message = document.querySelector(".failed-logIn-message");
+
 	if (successMessage) {
 	  setTimeout(() => {
 		successMessage.style.display = "none"; // Oculta el mensaje después de 10 segundos
@@ -266,5 +289,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		}, 10000); // 10000 ms = 10 segundos
 	}
 
+	/*
+	if (fail_LogIn_Message) {
+		setTimeout(() => {
+			fail_LogIn_Message.style.display = "none"; // Oculta el mensaje después de 10 segundos
+		}, 10000); // 10000 ms = 10 segundos
+	}
+	*/
 });
-  

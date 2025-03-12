@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de Sesión & Registro</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styless.css" />
   </head>
   <body>
+
     <main>
       <div class="box">
         <div class="inner-box">
@@ -29,32 +30,44 @@
               <div class="actual-form">
                 <div class="input-wrap">
                   <input
-                    type="email"
-                    minlength="4"
-                    class="input-field"
-                    autocomplete="off"
-                    required
+                      type="email"
+                      minlength="8"
+                      class="input-field"
+                      name="correo"
+                      id="correo_LogIn"
+                      autocomplete="off"
+                      required
                   />
-                  <label>Correo</label>
+                  <label>Correo</label>                  
                 </div>
 
                 <div class="input-wrap">
                   <input
                     type="password"
-                    minlength="4"
+                    minlength="8"
                     class="input-field"
+                    name="password"
+                    id="password-LogIn"
                     autocomplete="off"
                     required
                   />
                   <label>Contraseña</label>
                 </div>
                 
-                <input type="hidden" name="hidden" value="" />
-                <input type="submit" value="Iniciar Sesión" class="sign-btn" />
+                <input type="hidden" name="hidden" value="2" />
+
+                <?php if (isset($_GET['errorDatos']) && $_GET['errorDatos'] == 1) { ?>
+                  <div class="failed-logIn-message">
+                    Datos no encontrados. Verifique su correo o contraseña
+                  </div>
+                <?php } ?>
+
+                <!--<input type="submit" value="Iniciar Sesión" class="sign-btn" /> -->
+                <button type="submit" class="sign-btn">Iniciar Sesión</button>
 
                 <p class="text">
                   ¿Problemas para ingresar? 
-                  <a href="#">Recupera tu acceso</a> 
+                  <a href="./assets/olvido_pass.php">Recupera tu acceso</a> 
                 </p>
               </div>
             </form>
@@ -67,7 +80,7 @@
               </div>
 
               <div class="heading">
-                <h2>Empieza aquí</h2>
+                <h2>Regístrate aquí</h2>
                 <h6>¿Ya tienes cuenta?</h6>
                 <a href="#" class="toggle">Iniciar Sesión</a>
               </div>
@@ -100,10 +113,11 @@
                       id="nombre" 
                       autocomplete="off"
                       required>
-                      <label for="nombre" class="formulario__label">Nombre</label>
-                      <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                  
+                    <label for="nombre" class="formulario__label">Nombre</label>
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El nombre solo puede contener letras y espacios</p>
+                  <p class="formulario__input-error">El nombre solo puede contener letras, espacios y acentos</p>
                 </div>
              
 
@@ -121,9 +135,9 @@
                     <label for="correo" class="formulario__label">Correo</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El correo admite letras, números, puntos y guiones</p>
+                  <p class="formulario__input-error">Ingrese un correo válido</p>
 
-                  <!-- Div para mensaje de error -->
+                  <!-- Div para mensaje de error - Correo existente -->
                   <div class="error-message"></div>
                 </div>
 
@@ -133,10 +147,10 @@
                   <div class="formulario__grupo-input">
                     <input
                       type="password"
-                      minlength="4"
+                      minlength="8"
                       class="input-field formulario__input"
                       name="password"
-                      id="password"
+                      id="passwordRegister"
                       autocomplete="off"
                       required
                     />
@@ -144,27 +158,36 @@
                     <i class="fa-regular fa-eye" id="password-eye"></i>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">La contraseña debe contener mínimo 8 dígitos</p>
+                  
+                  <!-- Mensaje de error | Da indicaciones para una correcta contraseña -->
+                  <p class="formulario__input-error">
+                    <p id="error-passwordMessage" class="error-passwordMessage" style="display: none;"></p>
+                  </p>
                 </div>
 
                 <input type="hidden" name="hidden" value="1" />
+       
               
                 <?php if (isset($_GET['usuarioRegistrado']) && $_GET['usuarioRegistrado'] == 1) { ?>
                   <div class="success-message">
-                    ¡Registro Exitoso! Ahora puedes iniciar sesión.
+                    ¡Registro Exitoso! Ahora puedes iniciar sesión
                   </div>
                 <?php } ?>
 
                 <?php if (isset($_GET['errorRegistro']) && $_GET['errorRegistro'] == 2) { ?>
                   <div class="failed-registration-message">
-                    ¡Ups! Registro fallido. Intenta nuevamente.
+                    ¡Ups! Registro fallido. Intenta nuevamente
                   </div>
                 <?php } ?>
 
-                <input type="submit" value="Registrar" class="sign-btn" />
-
-
-
+                <?php if (isset($_GET['errorRegistro']) && $_GET['errorRegistro'] == 3) { ?>
+                  <div class="failed-registration-message">
+                    Asegúrate de completar correctamente los campos antes de enviar
+                  </div>
+                <?php } ?>
+                    
+                <div id="error-camposMessage" class="error-camposMessage" style="display: none;"></div>
+                <input type="submit" class="sign-btn" value="Registrar" />
 
                 <p class="text">
                   Cuidamos cada kilómetro de tu carga.
