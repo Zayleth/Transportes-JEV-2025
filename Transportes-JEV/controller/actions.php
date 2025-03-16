@@ -44,7 +44,7 @@ switch ($hidden) {
             exit;
         }
 
-        // Verificar correo duplicado
+        // Verificar correo existente
         $stmt = $conex->prepare("SELECT COUNT(*) FROM usuarios WHERE correo_usuario = ?");
         $stmt->bind_param("s", $correo);
         $stmt->execute();
@@ -53,9 +53,10 @@ switch ($hidden) {
         $stmt->close();
 
         if ($count > 0) {
-            header("location:../view/login/index.php?show=register&error=correoExistente");
+            header("location:../view/login/index.php?show=register&correoExistente=1");
             exit;
         }
+        
 
         // Registro de usuario
         $password_hashed = password_hash($password, PASSWORD_DEFAULT);
@@ -64,52 +65,47 @@ switch ($hidden) {
         $stmt->bind_param("sssi", $nombre, $correo, $password_hashed, $id_cargo);
 
         if ($stmt->execute()) {
-            header("location:../view/login/index.php?show=register&usuarioRegistrado=1");
+            header("location:../view/login/index.php?show=register&usuarioRegistrado=1"); // Usuario Registrado
         } else {
-            header("location:../view/login/index.php?show=register&errorRegistro=2");
+            header("location:../view/login/index.php?show=register&errorRegistro=2"); // Error de registro
         }
         exit;
+       
 
-        
     /* LOG IN DE USUARIOS */
     case 2:
 
         $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $conex->prepare("SELECT * FROM usuarios WHERE correo_usuario = ?");
-        $stmt->bind_param("s", $correo);
+        $stmt->bind_param("s", $correoLogIn);
         $stmt->execute();
         $resultado = $stmt->get_result();
-        $fila = $resultado->fetch_assoc(); // correo y contraseña
+        $fila = $resultado->fetch_assoc();
         
-        if ($fila && password_verify($password, $fila['password_us'])) {
-            // Iniciar sesión y redirigir según el rol del usuario
+        if ($fila && password_verify($passwordLogIn, $fila['password_us'])) {
             session_start();
+            session_regenerate_id(true); // Regenerar ID de sesión
             $_SESSION['id_cargo'] = $fila['id_cargo'];
             $_SESSION['usuario'] = $fila['nombre_usuario'];
             $_SESSION['correo'] = $fila['correo_usuario'];
         
+            // Redirigir según el rol
             if ($fila['id_cargo'] == 1) {
-                header("location:../pantallaAdmin/editarUsuario.php"); // Administrador
+                header("location:../view/pantallaAdmin/calculadoraFletes/calculadora.html");
             } else if ($fila['id_cargo'] == 2) {
-                header("location:../pantallaCliente/cliente_waiting.php"); // Cliente
-            } 
-            
-            exit;
-
-        } else {
-            // Usuario no encontrado o contraseña incorrecta
-            if (!$fila) {
-                header("location:../view/login/index.php?errorDatos=1"); // Usuario o contraseña  no encontrado
-            } else {
-                header("location:../index.html"); // 
+                header("location:../view/pantallaCliente/prueba.php");
             }
+            exit;
+        } else {
+            // Redirigir con un mensaje genérico de error
+            header("location:../view/login/index.php?errorDatos=1");
             exit;
         }
         
         $stmt->close();
         mysqli_close($conex);
-        break;
+        
 
     /* CAMBIO DE CONTRASEÑA */
     case 3:
@@ -138,7 +134,6 @@ switch ($hidden) {
         } else {
             header("location:../view/login/assets/olvido_pass.php?error=2"); // Correo no encontrado
         }
-
 
         // Cerrar conexiones
         $stmt->close();

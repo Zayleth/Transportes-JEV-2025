@@ -136,7 +136,8 @@ form.sign-up-form {
 }
 
 .toggle:hover {
-  color: var(--green-blue-crayola);
+  /*color: var(--green-blue-crayola);*/
+  color: #8371fd;
 }
 
 .input-wrap {
@@ -441,14 +442,14 @@ main.sign-up-mode .carousel {
 
 /* Error correo existente */
 .error-message {
-  display: none;
-  color: #d9534f; /* Rojo */
-  background-color: #f8d7da; /* Fondo rosado claro */
-  border: 1px solid #f5c6cb; /* Borde rojo claro */
-  padding: 10px;
+  /* display: none; */
+  color: #d9534f;
+  /* background-color: #f8d7da; */
+  /* border: none; */
+  /* padding: 8px; */
   margin: 10px 0;
   border-radius: 5px;
-  font-family: Arial, sans-serif;
+  /*font-family: Arial, sans-serif; */
   font-size: 10px;
   font-weight: bold;
 }
@@ -470,9 +471,9 @@ main.sign-up-mode .carousel {
 /* Mensaje en base al input erróneo */
 .error-passwordMessage {
   margin-top: 5px; /* Ajusta el margen según sea necesario */
-  color: red; /* Color del texto para destacar el error */
+  color: #d9534f; /* Color del texto para destacar el error */
   font-size: 10px; /* Tamaño de fuente legible */
-  font-weight: normal; /* Opcional: asegura que el texto no sea demasiado grueso */
+  font-weight: bold; /* Opcional: asegura que el texto no sea demasiado grueso */
 }
 
 
@@ -526,7 +527,7 @@ position: relative;
 }
 
 .formulario__input-error {
-font-size: 12px;
+font-size: 10px;
 margin-bottom: 0;
 display: none;
 }
@@ -534,9 +535,9 @@ display: none;
 .formulario__input-error-activo {
   display: block;
   margin-top: 5px; /* Ajusta el margen según sea necesario */
-  color: red; /* Color del texto para destacar el error */
+  color: #d9534f; /* Color del texto para destacar el error */
   font-size: 10px; /* Tamaño de fuente legible */
-  font-weight: normal; /* Opcional: asegura que el texto no sea demasiado grueso */
+  font-weight: bold; /* Opcional: asegura que el texto no sea demasiado grueso */
 }
 
 .formulario__validacion-estado {
@@ -557,14 +558,15 @@ display: none;
 margin-right: 10px;
 }
 
+
 #password-eye {
   position: absolute;
   right: 10px;
   bottom: 10px;
   z-index: 110;
   font-size: 16px;
-  color: #333; /* Cambia el color del icono, opcional */
-  pointer-events: auto; /* Asegura que se pueda hacer clic */
+  color: #333;  
+  pointer-events: auto; 
 }
 
 .formulario__grupo-terminos, 
@@ -679,3 +681,4 @@ opacity: 1;
   width: 100%;
 }
 }
+

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de Sesión & Registro</title>
-    <link rel="stylesheet" href="styless.css" />
+    <link rel="stylesheet" href="logIn.css" />
   </head>
   <body>
 
@@ -29,36 +29,37 @@
 
               <div class="actual-form">
                 <div class="input-wrap">
-                  <input
+                    <input
                       type="email"
-                      minlength="8"
                       class="input-field"
-                      name="correo"
-                      id="correo_LogIn"
+                      name="correoLogIn"
+                      id="correoLogIn"
                       autocomplete="off"
                       required
-                  />
-                  <label>Correo</label>                  
+                    />
+                    <label for="correoLogIn">Correo</label>
                 </div>
 
                 <div class="input-wrap">
-                  <input
-                    type="password"
-                    minlength="8"
-                    class="input-field"
-                    name="password"
-                    id="password-LogIn"
-                    autocomplete="off"
-                    required
-                  />
-                  <label>Contraseña</label>
+                    <input
+                      type="password"
+                      minlength="8"
+                      class="input-field"
+                      name="passwordLogIn"
+                      id="passwordLogIn"
+                      autocomplete="off"
+                      required
+                    />
+                    <label for="passwordLogIn">Contraseña</label>
+                    <!--<i class="fa-regular fa-eye" id="password-eye"></i>-->
                 </div>
                 
                 <input type="hidden" name="hidden" value="2" />
 
+                <!-- Mensajes del apartado - Iniciar Sesión -->
                 <?php if (isset($_GET['errorDatos']) && $_GET['errorDatos'] == 1) { ?>
-                  <div class="failed-logIn-message">
-                    Datos no encontrados. Verifique su correo o contraseña
+                  <div class="failed-registration-message">
+                    Correo o contraseña incorrectos
                   </div>
                 <?php } ?>
 
@@ -138,8 +139,15 @@
                   <p class="formulario__input-error">Ingrese un correo válido</p>
 
                   <!-- Div para mensaje de error - Correo existente -->
-                  <div class="error-message"></div>
+                  <?php 
+                  if (isset($_GET['correoExistente']) && $_GET['correoExistente'] == 1) { ?>
+                    <div class="error-message">
+                      Correo ya registrado. Por favor, utilice otro
+                    </div> 
+                  <?php } 
+                  ?>
                 </div>
+
 
 
                 <!-- Grupo: Contraseña -->
@@ -164,10 +172,8 @@
                     <p id="error-passwordMessage" class="error-passwordMessage" style="display: none;"></p>
                   </p>
                 </div>
-
-                <input type="hidden" name="hidden" value="1" />
        
-              
+                <!-- Mensajes del apartado - Registro -->
                 <?php if (isset($_GET['usuarioRegistrado']) && $_GET['usuarioRegistrado'] == 1) { ?>
                   <div class="success-message">
                     ¡Registro Exitoso! Ahora puedes iniciar sesión
@@ -185,8 +191,11 @@
                     Asegúrate de completar correctamente los campos antes de enviar
                   </div>
                 <?php } ?>
-                    
+
+                <!-- Mensajes de error de campos -->
                 <div id="error-camposMessage" class="error-camposMessage" style="display: none;"></div>
+
+                <input type="hidden" name="hidden" value="1" />
                 <input type="submit" class="sign-btn" value="Registrar" />
 
                 <p class="text">

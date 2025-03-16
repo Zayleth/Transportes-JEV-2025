@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recuperar Contraseña</title>
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../logIn.css" />
   </head>
   <body>
 
@@ -34,19 +34,15 @@
                     <input
                       type="email"
                       class="input-field formulario__input"
-                      name="correo" 
-                      id="correo_LogIn"
+                      name="correo"
+                      id="correo"
                       autocomplete="off"
                       required
-                    /> <!-- changed_correo -->
-
+                    />
                     <label for="correo" class="formulario__label">Correo</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El correo debe ser válido</p>
-
-                  <!-- Div para mensaje de error - No se encuentra el correo -->
-                  <div class="error-message"></div>
+                  <p class="formulario__input-error">Ingrese un correo válido</p>
                 </div>
 
 
@@ -66,7 +62,11 @@
                     <i class="fa-regular fa-eye" id="password-eye"></i>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">La contraseña debe contener mínimo 8 dígitos</p>
+                  
+                  <!-- Mensaje de error | Da indicaciones para una correcta contraseña -->
+                  <p class="formulario__input-error">
+                    <p id="error-passwordMessage" class="error-passwordMessage" style="display: none;"></p>
+                  </p>
                 </div>
                 
                 <?php if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
@@ -81,21 +81,12 @@
                   </div>
                 <?php } ?>
 
-                <input type="hidden" name="hidden" value="3" />
-
-                <?php if (isset($_GET['errorDatos']) && $_GET['errorDatos'] == 1) { ?>
-                  <div class="failed-logIn-message">
-                    Datos no encontrados. Verifique su correo o contraseña
-                  </div>
-                <?php } ?>
-
                 <?php if (isset($_GET['error']) && $_GET['error'] == 2) { ?>
                   <div class="failed-logIn-message">
                     Correo no encontrado
                   </div>
                 <?php } ?>
 
-                
                 <input type="hidden" name="hidden" value="3" />
                 <!--<input type="submit" value="Iniciar Sesión" class="sign-btn" /> -->
                 <button type="submit" class="sign-btn">Actualizar</button>
@@ -131,7 +122,7 @@
     </main>
 
     <!-- Javascript file -->
-    <script src="./js/logIn.js"></script>
+    <script src="./js/olvidoPass.js"></script>
 
     <!-- Iconos de Font Awesome-->
     <script src="https://kit.fontawesome.com/c182496823.js" crossorigin="anonymous"></script>

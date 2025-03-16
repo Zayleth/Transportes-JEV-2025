@@ -44,6 +44,8 @@ bullets.forEach((bullet) => {
 /*-----------------------------------------------*/
 
 const formulario = document.getElementById('formulario');
+//const formularioLOGIN = document.getElementById('formularioLOGIN');
+
 const entradas = document.querySelectorAll('#formulario input');
 
 const expresiones = {
@@ -113,11 +115,11 @@ const validarPassword = (password) => {
 };
 
 // Escuchar los cambios en el campo de contraseña
-const passwordInput = document.getElementById("passwordRegister");
+const password_register = document.getElementById("passwordRegister");
 const errorMessageP = document.getElementById("error-passwordMessage");
 
-passwordInput.addEventListener("input", () => {
-  const password = passwordInput.value;
+password_register.addEventListener("input", () => {
+  const password = password_register.value;
   const errores = validarPassword(password);
 
   if (errores.length > 0) {
@@ -168,7 +170,7 @@ entradas.forEach((input) => {
 
 
 /*-----------------------------------------------*/
-/* Prevenir el envío si algún campo no es válido */
+/* Prevenir el envío si algún campo no es válido FORMULARIO DE REGISTRO */
 /*-----------------------------------------------*/
 
 formulario.addEventListener('submit', (e) => {
@@ -190,71 +192,81 @@ formulario.addEventListener('submit', (e) => {
 });
 
 
-
-/* Funcionalidad - ojo password */
+//Funcionalidad - ojo password REGISTER 
 document.addEventListener("DOMContentLoaded", () => {
-    const pass = document.getElementById("passwordRegister");
-    const icono = document.getElementById("password-eye");
+  const password_register = document.getElementById("passwordRegister");
+  const toggleIcon = document.getElementById("password-eye");
 
-    icono.addEventListener("click", () => {
-        // Cambiar el tipo del input entre "password" y "text"
-        if (pass.type === "password") {
-            pass.type = "text"; // Mostrar la contraseña
-            icono.classList.remove("fa-eye"); // Eliminar clase de "ojo abierto"
-            icono.classList.add("fa-eye-slash"); // Agregar clase de "ojo cerrado"
-        } else {
-            pass.type = "password"; // Ocultar la contraseña
-            icono.classList.remove("fa-eye-slash"); // Eliminar clase de "ojo cerrado"
-            icono.classList.add("fa-eye"); // Agregar clase de "ojo abierto"
-        }
-    });
+  toggleIcon.addEventListener("click", () => {
+      // Cambiar el tipo del input entre "password" y "text"
+      if (password_register.type === "password") {
+          password_register.type = "text"; // Mostrar la contraseña
+          toggleIcon.classList.remove("fa-eye"); // Eliminar clase de "ojo abierto"
+          toggleIcon.classList.add("fa-eye-slash"); // Agregar clase de "ojo cerrado"
+      } else {
+          password_register.type = "password"; // Ocultar la contraseña
+          toggleIcon.classList.remove("fa-eye-slash"); // Eliminar clase de "ojo cerrado"
+          toggleIcon.classList.add("fa-eye"); // Agregar clase de "ojo abierto"
+      }
+  });
 });
 
+// TO FIX
 
-
-// Al redirigir al usuario nuevamente al index Log In. Cae directamente en el register form con el "mensaje de error"
-// Al redirigir al usuario nuevamente al index Log In. Cae directamente en el register form con el "Registro Exitoso"
+//Funcionalidad - ojo password LOGIN 
+/*
 document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
+  const pass_LOGIN = document.getElementById("passwordLogIn");
+  const icono_EYE = document.getElementById("password-eye");
 
-    // Detecta si el parámetro "show=register" está en la URL
-    if (params.get("show") === "register") {
-        const main = document.querySelector("main"); // Selecciona el contenedor principal
-        if (main) {
-            main.classList.add("sign-up-mode"); // Muestra el formulario de registro
+  icono_EYE.addEventListener("click", () => {
+      // Cambiar el tipo del input entre "password" y "text"
+      if (pass_LOGIN.type === "password") {
+          pass_LOGIN.type = "text"; // Mostrar la contraseña
+          icono_EYE.classList.remove("fa-eye"); // Eliminar clase de "ojo abierto"
+          icono_EYE.classList.add("fa-eye-slash"); // Agregar clase de "ojo cerrado"
+      } else {
+          pass_LOGIN.type = "password"; // Ocultar la contraseña
+          icono_EYE.classList.remove("fa-eye-slash"); // Eliminar clase de "ojo cerrado"
+          icono_EYE.classList.add("fa-eye"); // Agregar clase de "ojo abierto"
+      }
+  });
+});
+*/
 
-            // Mostrar el mensaje de error si "error" está presente
-            const errorMessage = params.get("error");
-            if (errorMessage === "correoExistente") {
+// Mensaje de error - Correo ya existente
+
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+
+  // Detecta si el parámetro "show=register" está en la URL
+  if (params.get("show") === "register") {
+      const main = document.querySelector("main"); // Selecciona el contenedor principal
+      if (main) {
+          main.classList.add("sign-up-mode"); // Muestra el formulario de registro
+
+          const emailInput = document.getElementById("correo"); // Selecciona el input de correo
+          const errorDiv = document.querySelector(".error-message"); // Selecciona el contenedor del mensaje de error
+      
+          // Evento para ocultar el mensaje de error cuando el usuario escribe
+          emailInput.addEventListener("input", () => {
+              if (errorDiv) {
+                errorDiv.style.display = "none"; // Oculta el mensaje de error
+                errorDiv.textContent = ""; // Limpia el contenido del mensaje
+              } else {
+                // Asegúrate de ocultar el mensaje si no hay error
                 const errorDiv = document.querySelector(".error-message");
-                if (errorDiv) {
-                    errorDiv.textContent = "El correo ya está registrado. Por favor, utiliza otro.";
-                    errorDiv.style.display = "block"; // Asegúrate de mostrar el mensaje de error
-                
-				} else {
-					// Asegúrate de ocultar el mensaje si no hay error
-					const errorDiv = document.querySelector(".error-message");
-					if (errorDiv) {
-						errorDiv.style.display = "none";
-					}	
-            	}
-
-            // Mostrar el mensaje de éxito si "usuarioRegistrado" está presente
-            const successMessage = params.get("usuarioRegistrado");
-            if (successMessage === "1") {
-				console.log("Registro Exitoso");
-            }
-
-			// Mostrar el mensaje de error si -> registroFallido
-            const failMessage = params.get("errorRegistro");
-            if (failMessage === "2") {
-				console.log("¡Ups! Registro fallido. Intenta nuevamente.");
-            }
-
-        	}
-    	}
-	}
+                  if (errorDiv) {
+                    errorDiv.style.display = "none";
+                  }	
+              }
+          });
+        }
+    }
 });
+
+
+
 
 
 // Limpiar el "mensaje de error" cuando el usuario empiece a escribir en el input (correo)
@@ -266,10 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
     emailInput.addEventListener("input", () => {
         if (errorDiv) {
         	errorDiv.style.display = "none"; // Oculta el mensaje de error
-            errorDiv.textContent = ""; // Limpia el contenido del mensaje
+          errorDiv.textContent = ""; // Limpia el contenido del mensaje
         }
     });
 });
+
 
 // Eliminación de "Usuario registrado correctamente" luego de 10s
 document.addEventListener("DOMContentLoaded", () => {
