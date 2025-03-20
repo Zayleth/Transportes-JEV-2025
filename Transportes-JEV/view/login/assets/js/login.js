@@ -266,9 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
-
 // Limpiar el "mensaje de error" cuando el usuario empiece a escribir en el input (correo)
 document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.getElementById("correo"); // Selecciona el input de correo

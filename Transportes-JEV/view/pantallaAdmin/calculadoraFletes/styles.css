@@ -330,6 +330,173 @@
 }
 
 
+/*-----------------------------------*\
+  # CALCULADORA
+\*-----------------------------------*/
+
+
+  .calculadoraSection {
+    /*padding-block: var(--section-padding);*/
+    padding-top: 90px;
+  }
+
+  /* Contenedor principal */
+  .calculadora-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+  }
+
+  /* Título */
+  .calculadora-container h1 {
+    text-align: center;
+    font-size: 4rem;
+    color: var(--green-blue-crayola);
+    margin-bottom: 40px;
+  }
+
+  /* Grupos de campos */
+  .field-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 15px;
+  }
+
+  /* Estilos de los campos individuales */
+  .field {
+      flex: 1;
+      min-width: 250px;
+  }
+
+  .field label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+  }
+
+  .field select, .field button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+  }
+
+  /* Hover y Focus */
+  .field select:hover, .field select:focus {
+      border-color: var(--green-blue-crayola);
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .field button {
+      font-weight: bold;
+      background-color: #0056b3; /*#007BFF;*/
+      color: #fff;
+      border: none;
+      cursor: pointer;
+  }
+
+  .field button:hover {
+      background-color: var(--green-blue-crayola);
+  }
+
+  .field button:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  }
+
+  select:focus {
+  outline: none;
+  border: 2px solid var(--green-blue-crayola); /* Personaliza el color del borde al estar enfocado */
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efecto suave de brillo */
+}
+
+  /* Resaltado de error/deshabilitado */
+  .field select:disabled {
+      background-color: #f0f0f0;
+      color: #999;
+  }
+
+  /* Últimos ajustes para espacios */
+  .field:last-child {
+      margin-right: 0;
+  }
+
+  /* Mensaje de éxito | Precio Flete */
+  .success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 0.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+   /* Mensaje de fallo | Precio Flete */
+  .data-message {
+    color: var(--indigo-dye);
+    background-color: hsl(202deg 64.52% 78.25%);
+    border: hsl(202deg 64.52% 78.25%);
+    padding: 10px;
+    border-radius: 0.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .data-message a, .success-message a {
+    text-decoration: underline;
+    display: inline;
+  }
+
+  
+  .data-message a:hover,
+  .success-message a:hover {
+    color: hsl(32deg 100% 24.88%);
+    font-weight: bold;
+  }
+  
+  
+
+  #camposIncompletos-message p {
+    color: #d9534f; /* Rojo */
+    background-color: #f8d7da; /* Fondo rosado claro */
+    border: 1px solid #f5c6cb; /* Borde rojo claro */
+    padding: 10px;
+    border-radius: 0.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .camposIncompletos-message {
+    color: #d9534f; /* Rojo */
+    background-color: #f8d7da; /* Fondo rosado claro */
+    border: 1px solid #f5c6cb; /* Borde rojo claro */
+    padding: 10px;
+    border-radius: 0.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
 
 /*-----------------------------------*\
   #MEDIA QUERISE

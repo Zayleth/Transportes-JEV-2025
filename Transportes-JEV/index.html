@@ -15,7 +15,7 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styless.css">
 
   <!--
     - google font link
@@ -57,7 +57,7 @@
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <a href="#about" class="navbar-link" data-nav-link>
+            <a href="#home" class="navbar-link" data-nav-link>
               <span>Home</span>
 
               <ion-icon name="chevron-forward"></ion-icon>
@@ -148,7 +148,7 @@
               There are many variations of passages of worem Ipsum available, but the majority
             </p>
 
-            <a href="./view/calculadoraFletes/calculadora.html" class="btn-outline">Cotiza tu flete</a>
+            <a href="./view/pantallaCliente/calculadora.php" class="btn-outline">Cotiza tu flete</a>
 
             <!-- <img src="./assets/images/hero-shape.png" width="116" height="116" loading="lazy"
               class="hero-shape shape-1"> -->
@@ -761,15 +761,41 @@
     - #CONTACTO - FORMULARIO
   -->
 
-  <section class="container" id="ubicacion" aria-label="contacto">
+  <section class="container ubicacion" id="ubicacion" aria-label="contacto">
 
     <div class="container-Contact">
 
-      <div class="container-maps">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15693.28292631156!2d-66.63399553994113!3d10.475362558167987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2bab2a62e6ea81%3A0x39255d944fe714d5!2sZona%20Industrial%2C%20Guarenas%201220%2C%20Miranda!5e0!3m2!1sen!2sve!4v1741200996287!5m2!1sen!2sve" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="container-maps map-container"> <!-- width="800" height="600" -->
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31386.567934853083!2d-66.614512!3d10.475342!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2bab2a62e6ea81%3A0x39255d944fe714d5!2sZona%20Industrial%2C%20Guarenas%201220%2C%20Miranda!5e0!3m2!1sen!2sve!4v1742430989830!5m2!1sen!2sve" 
+          width="100%" 
+          height="300" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>     
       </div>
+  
 
-      <div class="container-info">
+      <div class="informacion-contacto">
+        <h3>Ubicación</h3>
+        <div class="detalle">
+            <span class="icono">📍</span>
+            <p><strong>Dirección:</strong> Avenida Principal, Caracas, Venezuela.</p>
+        </div>
+        <div class="detalle">
+            <span class="icono">🗺️</span>
+            <p><strong>Punto de Referencia:</strong> Frente al Centro Comercial Miranda.</p>
+        </div>
+
+        <button onclick="window.open('')">Cómo llegar</button>
+      </div>
+    
+   
+    
+      <!--<div class="container-info">
+        
         
         <div class="location-info">
             <h3 class="h3 card-title">
@@ -802,9 +828,9 @@
             Instagram: @unihumboldt <br>
             Instagram: @grupohumboldt
           </p>
-        </div>
+        </div> 
 
-      </div> <!-- container-info -->
+      </div> container-info -->
     </div> <!-- container-contact -->
     
   </section> <!-- container -->
@@ -964,7 +990,8 @@
   -->
 
   <a href="#top" class="back-top-btn" aria-label="Back to top" data-back-top-btn>
-    <ion-icon name="chevron-up"></ion-icon>
+    <!--<ion-icon name="chevron-up"></ion-icon>-->
+    <ion-icon name="arrow-up-circle-outline"></ion-icon>
   </a>
 
 

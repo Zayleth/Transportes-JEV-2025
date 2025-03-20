@@ -2,10 +2,11 @@
 include "conexion.php";
 
 extract($_POST);
+extract($_GET);
 
 switch ($hidden) {
     
-    /* REGISTRO DE USUARIOS */
+    // REGISTRO DE USUARIOS 
     case 1:
 
         // Obtener y limpiar los datos enviados por el formulario
@@ -72,7 +73,7 @@ switch ($hidden) {
         exit;
        
 
-    /* LOG IN DE USUARIOS */
+    // LOG IN DE USUARIOS 
     case 2:
 
         $password_hashed = password_hash($password, PASSWORD_DEFAULT);
@@ -107,7 +108,7 @@ switch ($hidden) {
         mysqli_close($conex);
         
 
-    /* CAMBIO DE CONTRASEÑA */
+    // CAMBIO DE CONTRASEÑA 
     case 3:
 
         // Verificar si el correo existe
@@ -139,8 +140,54 @@ switch ($hidden) {
         $stmt->close();
         $conex->close();
 
+    // CALCULADORA DE FLETES
+    case 4: 
+        session_start();
+        // Consulta optimizada con filtro
+        $query = "SELECT origen_viaje, destino_viaje, precio_viaje FROM viajes WHERE origen_viaje = ? AND destino_viaje = ?";
+        $stmt = $conex->prepare($query); // Uso de consultas preparadas
+        $stmt->bind_param("ss", $origen_viaje, $destino_viaje);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $fila = $resultado->fetch_assoc();
+        
+        if ($fila) {
+            // Almacenar los datos en sesión
+            $_SESSION['origen'] = $fila["origen_viaje"];
+            $_SESSION['destino'] = $fila["destino_viaje"];
+            $_SESSION['precio'] = $fila["precio_viaje"];
+        
+            // Redirigir sin exponer información en la URL
+            header("Location: ../view/pantallaAdmin/calculadoraFletes/calculadora.php");
+            exit();
 
-}
+        } else {
+           
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['origen_viaje']) && !empty($_POST['destino_viaje'])) {
+                
+                $origen = urlencode($_POST['origen_viaje']);
+                $destino = urlencode($_POST['destino_viaje']);
+                //$whatsapp_url = "https://wa.me/584143991619?text=Hola,%20solicito%20un%20flete%20desde%20" . $origen . "%20hacia%20" . $destino .".%20Quedo%20atento(a)%20a%20su%20respuesta";
+                $whatsapp_url = "https://wa.me/584143991619?text=" . urlencode("Hola, solicito un flete desde $origen hacia $destino. Quedo atento(a) a su respuesta");
+
+                // Redirigir al archivo calculadora.php con el enlace de WhatsApp como parámetro
+                $redirect_url = "../view/pantallaAdmin/calculadoraFletes/calculadora.php?data=1&whatsapp_url=" . urlencode($whatsapp_url);
+                header("Location: $redirect_url");
+                exit;
+                
+            } else {
+                //echo "<p>Error: Datos del formulario incompletos.</p>";
+                header("Location: ../view/pantallaAdmin/calculadoraFletes/calculadora.php?data=2");
+            }
+            
+            
+            //header("Location: ../view/pantallaAdmin/calculadoraFletes/calculadora.php?data=1");
+            //exit();
+        }
+        
+
+}       
 
 
 ?>
+
