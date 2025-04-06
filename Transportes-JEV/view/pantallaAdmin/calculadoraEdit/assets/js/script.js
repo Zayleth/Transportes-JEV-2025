@@ -44,13 +44,13 @@ const entradas = document.querySelectorAll('#formulario input');
 const expresiones = {
 	origen: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos
   destino: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos
-	precio: /^\d+(\.\d{1,2})?$/ // número entero (como "123"), número con hasta dos decimales (como "123.45"), no debe incluir letras ni símbolos adicionales
+	capacidad: /^\d+$/ // número entero 
 }
 
 const campos = {
 	origen: false,
 	destino: false,
-	precio: false
+	capacidad: false
 }
 
 const validarFormulario = (e) => {
@@ -63,54 +63,54 @@ const validarFormulario = (e) => {
 			validarCampo(expresiones.destino, e.target, 'destino');
 		break;
 
-		case "precio":
-			validarCampo(expresiones.precio, e.target, 'precio');
+		case "capacidad":
+			validarCampo(expresiones.capacidad, e.target, 'capacidad');
 		break;
 	}
 }
 
-/* Validacion de precio | Caracteres especiales */
-/* Validacion de precio | Caracteres especiales */
+/* Validacion de capacidad | Caracteres especiales */
+/* Validacion de capacidad | Caracteres especiales 
 
-const validarPrecio = (precio) => {
+const validarcapacidad = (capacidad) => {
   const errores = [];
   
   // Regla: Debe ser un número válido
-  if (!precio) {
+  if (!capacidad) {
       errores.push("Debe ser un número válido con hasta dos decimales.");
   }
 
   // Regla: No puede ser negativo
-  if (Number(precio) < 0) {
+  if (Number(capacidad) < 0) {
       errores.push("No puede ser un número negativo.");
   }
 
   // Regla: Solo debe contener números (enteros o decimales) / ningun símbolo
-  if (!/^\d+(\.\d+)?$/.test(precio)) {
+  if (!/^\d+(\.\d+)?$/.test(capacidad)) {
     errores.push("Solo se permiten números.");
   }
 
 
   // Regla: Longitud máxima de 50 caracteres
-  if (precio.length > 50) {
+  if (capacidad.length > 50) {
       errores.push("Debe tener como máximo 50 caracteres.");
   }
 
   // Regla: Campo obligatorio
-  if (!precio) {
+  if (!capacidad) {
       errores.push("El campo no puede estar vacío.");
   }
 
   return errores;
 };
 
-// Escuchar los cambios en el campo de precio
-const precio_register = document.getElementById("precio");
-const errorMessageP = document.getElementById("error-precioMessage");
+// Escuchar los cambios en el campo de capacidad
+const capacidad_register = document.getElementById("capacidad");
+const errorMessageP = document.getElementById("error-capacidadMessage");
 
-precio_register.addEventListener("input", () => {
-  const precio = precio_register.value;
-  const errores = validarPrecio(precio);
+capacidad_register.addEventListener("input", () => {
+  const capacidad = capacidad_register.value;
+  const errores = validarcapacidad(capacidad);
 
   if (errores.length > 0) {
       // Mostrar el primer error detectado
@@ -121,6 +121,7 @@ precio_register.addEventListener("input", () => {
       errorMessageP.style.display = "none";
   }
 });
+*/
 
 const validarCampo = (expresion, input, campo) => {
     // Obtener el grupo específico
@@ -166,7 +167,7 @@ formulario.addEventListener('submit', (e) => {
   const errorCamposMessageDiv = document.getElementById('error-camposMessage'); // Selecciona el contenedor del mensaje de error
 
   // Verificar si todos los campos son válidos
-  if (!(campos.origen && campos.destino && campos.precio)) {
+  if (!(campos.origen && campos.destino && campos.capacidad)) {
       e.preventDefault(); // Detener el envío
 
       // Mostrar el mensaje de error con estilos

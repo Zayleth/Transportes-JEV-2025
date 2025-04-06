@@ -144,18 +144,18 @@ switch ($hidden) {
     case 4: 
         session_start();
         // Consulta optimizada con filtro
-        $query = "SELECT origen_viaje, destino_viaje, precio_viaje FROM viajes WHERE origen_viaje = ? AND destino_viaje = ?";
+        $query = "SELECT modelo_camion, tipo_camion, capacidad_camion FROM camions WHERE modelo_camion = ? AND tipo_camion = ?";
         $stmt = $conex->prepare($query); // Uso de consultas preparadas
-        $stmt->bind_param("ss", $origen_viaje, $destino_viaje);
+        $stmt->bind_param("ss", $modelo_camion, $tipo_camion);
         $stmt->execute();
         $resultado = $stmt->get_result();
         $fila = $resultado->fetch_assoc();
         
         if ($fila) {
             // Almacenar los datos en sesión
-            $_SESSION['origen'] = $fila["origen_viaje"];
-            $_SESSION['destino'] = $fila["destino_viaje"];
-            $_SESSION['precio'] = $fila["precio_viaje"];
+            $_SESSION['modelo'] = $fila["modelo_camion"];
+            $_SESSION['tipo'] = $fila["tipo_camion"];
+            $_SESSION['capacidad'] = $fila["capacidad_camion"];
         
             // Redirigir sin exponer información en la URL
             header("Location: ../view/pantallaCliente/calculadoraFletes/calculadora.php");
@@ -163,12 +163,12 @@ switch ($hidden) {
 
         } else {
            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['origen_viaje']) && !empty($_POST['destino_viaje'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['modelo_camion']) && !empty($_POST['tipo_camion'])) {
                 
-                $origen = urlencode($_POST['origen_viaje']);
-                $destino = urlencode($_POST['destino_viaje']);
-                //$whatsapp_url = "https://wa.me/584143991619?text=Hola,%20solicito%20un%20flete%20desde%20" . $origen . "%20hacia%20" . $destino .".%20Quedo%20atento(a)%20a%20su%20respuesta";
-                $whatsapp_url = "https://wa.me/584143991619?text=" . urlencode("Hola, solicito un flete desde $origen hacia $destino. Quedo atento(a) a su respuesta");
+                $modelo = urlencode($_POST['modelo_camion']);
+                $tipo = urlencode($_POST['tipo_camion']);
+                //$whatsapp_url = "https://wa.me/584143991619?text=Hola,%20solicito%20un%20flete%20desde%20" . $modelo . "%20hacia%20" . $tipo .".%20Quedo%20atento(a)%20a%20su%20respuesta";
+                $whatsapp_url = "https://wa.me/584143991619?text=" . urlencode("Hola, solicito un flete desde $modelo hacia $tipo. Quedo atento(a) a su respuesta");
 
                 // Redirigir al archivo calculadora.php con el enlace de WhatsApp como parámetro
                 $redirect_url = "../view/pantallaCliente/calculadoraFletes/calculadora.php?data=1&whatsapp_url=" . urlencode($whatsapp_url);
@@ -185,34 +185,49 @@ switch ($hidden) {
             //exit();
         }
 
-    // CALCULADORA DE FLETES - AGREGAR NUEVO FLETE
+    // FUNCION ADMIN EDITAR - CALCULADORA DE FLETES - AGREGAR NUEVO FLETE
     case 5:
+
         session_start();
 
         // Obtener y limpiar los datos enviados por el formulario
-        $origen = trim($_POST['nuevoOrigen']);
-        $destino = trim($_POST['nuevoDestino']);
-        $precio = trim($_POST['nuevoPrecio']);
-        
+        $origen = trim($_POST['origen']);
+        $destino = trim($_POST['destino']);
+        $precio = trim($_POST['capacidad']);
+
         // Expresiones regulares para validación
         $regex_origen = '/^[a-zA-ZÀ-ÿ\s]{1,40}$/';
         $regex_destino = '/^[a-zA-ZÀ-ÿ\s]{1,40}$/';
-        $regex_precio = '/^\d+(\.\d{1,2})?$/';
+        $regex_precio = '/^\d+$/'; // numero entero
 
-        // Validación de campos vacíos
-        if (empty($origen) || empty($destino) || !$regex_precio) {
-            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=1"); // Campos vacíos
+        // Validación de campos vacíos y formato
+        if (empty($origen) || empty($destino) || !preg_match($regex_precio, $precio)) {
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=1"); // Campos vacíos o formato inválido
             exit;
         }
 
-        // Validar formato de los datos
-        if (!preg_match($regex_nombre, $nombre) || !preg_match($regex_destino, $destino)) {
-            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=1");
+        if (!preg_match($regex_origen, $origen) || !preg_match($regex_destino, $destino)) {
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=1"); // Formato inválido
             exit;
         }
-        
+
+        // Verificar conexión
+        if (!$conex) {
+            //error_log("Error en la conexión a la base de datos.");
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=2");
+            exit;
+        }
+
         // Verificar flete existente
-        $stmt = $conex->prepare("SELECT COUNT(*) FROM viajes WHERE $origen = ? AND $destino = ?");
+        $queryCheck = "SELECT COUNT(*) FROM viajes WHERE origen_viaje = ? AND destino_viaje = ?";
+        $stmt = $conex->prepare($queryCheck);
+
+        if (!$stmt) {
+            //error_log("Error en la preparación de la consulta: " . $conex->error);
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?error=stmt_failed");
+            exit;
+        }
+
         $stmt->bind_param("ss", $origen, $destino);
         $stmt->execute();
         $stmt->bind_result($count);
@@ -220,32 +235,83 @@ switch ($hidden) {
         $stmt->close();
 
         if ($count > 0) {
-            header("../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?fleteExistente=0");
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?fleteExistente=0");
             exit;
         }
 
-        $query = "INSERT INTO viajes (origen_viaje, destino_viaje, precio_viaje) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($conex, $query);
-        
-        mysqli_stmt_bind_param($stmt, "ssd", $nuevoOrigen, $nuevoDestino, $nuevoPrecio); // ssd = string, string, double
+        // Insertar nuevo flete
+        $queryInsert = "INSERT INTO viajes (origen_viaje, destino_viaje, precio_viaje) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($conex, $queryInsert);
+
+        if (!$stmt) {
+            //error_log("Error al preparar la consulta de inserción: " . mysqli_error($conex));
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?error=stmt_failed");
+            exit;
+        }
+
+        mysqli_stmt_bind_param($stmt, "ssd", $origen, $destino, $precio); // ssd: string, string, double
         $resultado = mysqli_stmt_execute($stmt);
+
+        if (!$resultado) {
+            error_log("Error al ejecutar la consulta de inserción: " . mysqli_error($conex));
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=2");
+            exit;
+        }
+
+        // Finalizar
+        mysqli_stmt_close($stmt);
+        header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?success=3");
+        exit;
         
+
+    // FUNCION ADMIN EDITAR - CALCULADORA DE FLETES - AGREGAR NUEVO CAMIÓN
+    case 6:
+        
+        session_start();
+        // Obtener y limpiar los datos enviados por el formulario
+        $modelo = trim($_POST['origen']);
+        $tipo = trim($_POST['destino']);
+        $capacidad = trim($_POST['capacidad']);
+
+        // Expresiones regulares para validación
+        $regex_modelo = '/^[a-zA-ZÀ-ÿ\s]{1,40}$/';
+        $regex_tipo = '/^[a-zA-ZÀ-ÿ\s]{1,40}$/';
+        $regex_capacidad = '/^\d+$/';
+
+        // Validación de campos vacíos y formatos
+        if (empty($modelo) || empty($tipo) || !preg_match($regex_capacidad, $capacidad)) {
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?errorF=1"); // Campos vacíos o formato inválido
+            exit;
+        }
+
+        if (!preg_match($regex_modelo, $modelo) || !preg_match($regex_tipo, $tipo)) {
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?errorF=1"); // Formato inválido
+            exit;
+        }
+
         // Verificar conexión
         if (!$conex) {
-            header("../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=2");
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?errorF=2");
             exit;
         }
 
-        // Si pasa los filtros:
-        if ($resultado) {
-            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?success=3");
-            exit();
-        } else {
-            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=2");
-            exit();
+        // Preparar consulta
+        $query = "INSERT INTO camiones (modelo_camion, tipo_camion, capacidad_camion) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($conex, $query);
+
+        // Asignar valores y ejecutar
+        mysqli_stmt_bind_param($stmt, "ssd", $modelo, $tipo, $capacidad); // ssd = string, string, double
+        $resultado = mysqli_stmt_execute($stmt);
+
+        if (!$resultado) {
+            header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?errorF=2");
+            exit;
         }
-        
+
+        // Finalizar y cerrar
         mysqli_stmt_close($stmt);
+        header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?success=3");
+        exit;
         
 }       
 

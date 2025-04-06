@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nuevo Flete</title>
+    <title>Nuevo Camión</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,7 +15,7 @@
           <div class="forms-wrap">
 
 
-            <!-- Register Form -->
+            <!-- Nuevo Camión Form -->
             <form action="../../../controller/actions.php" method="POST" autocomplete="off" class="sign-up-form" class="register-form formulario" id="formulario">
               <div class="logo">
                 <img src="./assets/img/logo.png" alt="easyclass" />
@@ -23,89 +23,66 @@
               </div>
 
               <div class="heading">
-                <h2>Agrega un Nuevo Flete</h2>
-                <h6>Datos del nuevo flete</h6>
+                <h2>Agrega un Nuevo Camión</h2>
+                <h6>Largos trayectos y nuevas oportunidades</h6>
               </div>
 
               <div class="actual-form">
-                <!-- ORIGINAL
-                <div class="input-wrap formulario__grupo formulario__grupo-input" id="grupo__nombre"> 
-                  <input
-                      type="text"
-                      minlength="4"
-                      class="input-field formulario__input"
-                      autocomplete="off"
-                      required
-                      name="nombre"
-                      id="nombre"
-                  />
-                  <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
-                  <label for="nombre" class="formulario__label">Nombre</label>              
-                  <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                </div> -->
-
-
-                <!-- Grupo: Origen -->
+                <!-- Grupo: Modelo de Camion -->
                 <div class="input-wrap formulario__grupo" id="grupo__origen">
                   <div class="formulario__grupo-input">
                     <input 
                       type="text" 
                       class="input-field formulario__input" 
                       name="origen" 
-                      id="origen" 
+                      id="modelo" 
                       autocomplete="off"
                       required>
                   
-                    <label for="origen" class="formulario__label">Origen</label>
+                    <label for="modelo" class="formulario__label">Modelo</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El origen solo puede contener letras, espacios y acentos</p>
+                  <p class="formulario__input-error">El modelo solo puede contener letras, espacios y acentos</p>
                 </div>
 
                 
-                <!-- Grupo: Destino -->
+                <!-- Grupo: Tipo -->
                 <div class="input-wrap formulario__grupo" id="grupo__destino">
                   <div class="formulario__grupo-input">
                     <input
                       type="text"
                       class="input-field formulario__input"
                       name="destino"
-                      id="destino"
+                      id="tipo"
                       autocomplete="off"
                       required
                     />
-                    <label for="destino" class="formulario__label">Destino</label>
+                    <label for="tipo" class="formulario__label">Tipo</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El destino solo puede contener letras, espacios y acentos</p>
+                  <p class="formulario__input-error">El tipo solo puede contener letras, espacios y acentos</p>
                 </div>
         
-                <!-- Grupo: Precio -->
+                <!-- Grupo: Capacidad -->
                 <div class="input-wrap formulario__grupo" id="grupo__capacidad">
                   <div class="formulario__grupo-input">
                     <input
                       type="text"
                       class="input-field formulario__input"
                       name="capacidad"
-                      id="precio"
+                      id="capacidad"
                       autocomplete="off"
                       required
                     />
-                    <label for="precio" class="formulario__label">Precio</label>
+                    <label for="capacidad" class="formulario__label">Capacidad</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El precio debe ser el número, sin puntos y sin símbolos</p> 
+                  <p class="formulario__input-error">La capacidad debe ser el número, sin puntos y sin texto</p> 
                   <!-- Mensaje de error | Da indicaciones para una capacidad correcta 
                   <p id="error-capacidadMessage"></p> -->
                 </div>
        
-                <!-- Mensajes del apartado - Nuevo Flete -->
-                <?php if (isset($_GET['fleteExistente']) && $_GET['fleteExistente'] == 0) { ?>
-                  <div class="failed-registration-message">
-                    Flete existente
-                  </div>
-                <?php } ?>
-
+                <!-- Mensajes del apartado - Nuevo Camión -->
                 <?php if (isset($_GET['errorF']) && $_GET['errorF'] == 1) { ?>
                   <div class="failed-registration-message">
                     Asegúrate de completar correctamente los campos antes de enviar
@@ -118,26 +95,20 @@
                   </div>
                 <?php } ?>
 
-                <?php if (isset($_GET['error']) && $_GET['error'] == "stmt_failed") { ?>
-                  <div class="failed-registration-message">
-                    Error en consulta. Intenta nuevamente
-                  </div>
-                <?php } ?>
-
                 <?php if (isset($_GET['success']) && $_GET['success'] == 3) { ?>
                   <div class="success-message">
-                    Flete agregado
+                    Camión agregado correctamente
                   </div>
                 <?php } ?>
 
                 <!-- Mensajes de error de campos -->
                 <div id="error-camposMessage" class="error-camposMessage" style="display: none;"></div>
 
-                <input type="hidden" name="hidden" value="5" />
-                <input type="submit" class="sign-btn" value="Agregar Flete" />
+                <input type="hidden" name="hidden" value="6" />
+                <input type="submit" class="sign-btn" value="Agregar" />
 
                 <p class="text">
-                  Cuidamos cada kilómetro de tu carga.
+                  Un motor que impulsa tus proyectos y fortalece tu visión ¡Felicidades!
                   <!-- <a href="#">Terms of Services</a> and
                   <a href="#">Privacy Policy</a> -->
                 </p>
