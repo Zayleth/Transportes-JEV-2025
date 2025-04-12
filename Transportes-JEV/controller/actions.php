@@ -71,7 +71,7 @@ switch ($hidden) {
             header("location:../view/login/index.php?show=register&errorRegistro=2"); // Error de registro
         }
         exit;
-       
+        break;
 
     // LOG IN DE USUARIOS 
     case 2:
@@ -106,7 +106,7 @@ switch ($hidden) {
         
         $stmt->close();
         mysqli_close($conex);
-        
+        break;
 
     // CAMBIO DE CONTRASEÑA 
     case 3:
@@ -139,12 +139,13 @@ switch ($hidden) {
         // Cerrar conexiones
         $stmt->close();
         $conex->close();
+        break;
 
-    // CALCULADORA DE FLETES - FUNCIONAMIENTO
+    // FIX: CALCULADORA DE FLETES - FUNCIONAMIENTO
     case 4: 
         session_start();
         // Consulta optimizada con filtro
-        $query = "SELECT modelo_camion, tipo_camion, capacidad_camion FROM camions WHERE modelo_camion = ? AND tipo_camion = ?";
+        $query = "SELECT modelo_camion, tipo_camion, capacidad_camion FROM camiones WHERE modelo_camion = ? AND tipo_camion = ?";
         $stmt = $conex->prepare($query); // Uso de consultas preparadas
         $stmt->bind_param("ss", $modelo_camion, $tipo_camion);
         $stmt->execute();
@@ -158,7 +159,7 @@ switch ($hidden) {
             $_SESSION['capacidad'] = $fila["capacidad_camion"];
         
             // Redirigir sin exponer información en la URL
-            header("Location: ../view/pantallaCliente/calculadoraFletes/calculadora.php");
+            header("Location: ../view/pantallaCliente/calculadoraFletes/calculadora.php?flete=1");
             exit();
 
         } else {
@@ -184,6 +185,7 @@ switch ($hidden) {
             //header("Location: ../view/pantallaAdmin/calculadoraFletes/calculadora.php?data=1");
             //exit();
         }
+        break;
 
     // FUNCION ADMIN EDITAR - CALCULADORA DE FLETES - AGREGAR NUEVO FLETE
     case 5:
@@ -262,6 +264,7 @@ switch ($hidden) {
         mysqli_stmt_close($stmt);
         header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?success=3");
         exit;
+        break;
         
 
     // FUNCION ADMIN EDITAR - CALCULADORA DE FLETES - AGREGAR NUEVO CAMIÓN
@@ -312,7 +315,40 @@ switch ($hidden) {
         mysqli_stmt_close($stmt);
         header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?success=3");
         exit;
+        break;
+
+    // FUNCION ADMIN CAMIONES REGISTRADOS - NAVBAR OPTIONS - EDITAR CAMIÓN
+    case 7:
+        // Obtener el ID desde la URL con seguridad
+        $id_camion_mod = isset($_POST['id_camion']) ? intval($_POST['id_camion']) : 0;            
+
+        // Asegurarse de que el ID es válido antes de ejecutar la consulta
+        if ($id_camion_mod > 0) {
+            // Consulta preparada
+            $query = "UPDATE camiones SET modelo_camion = ?, tipo_camion = ?, capacidad_camion = ?, status_camion = ? WHERE id_camion = ?";
+            
+            $stmt = $conex->prepare($query);
+            $stmt->bind_param("ssisi", $origen, $destino, $capacidad, $nuevo_status, $id_camion_mod);
+            $stmt->execute();
         
+            // Verificar si la actualización fue exitosa
+            if ($stmt->affected_rows > 0) {
+                echo $id_camion_mod;
+                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?success=3");
+            } else {
+                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
+            }
+        
+            $stmt->close();
+        } else {          
+            header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
+        }
+        
+        $conex->close();
+        exit;
+        
+
+    
 }       
 
 

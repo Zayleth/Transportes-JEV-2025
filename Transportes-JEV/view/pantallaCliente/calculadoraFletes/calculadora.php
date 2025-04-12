@@ -18,7 +18,7 @@ include "../../../controller/conexion.php";
     <!-- 
         - custom css link
     -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 
     <!--
     - google font link
@@ -30,7 +30,57 @@ include "../../../controller/conexion.php";
         rel="stylesheet">
 </head>
 <body>
+<!--
+  <header class="header">
+    <nav class="menu">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#regresar">Regresar</a></li>
+      </ul>
+    </nav>
+  </header> -->
 
+  <nav>
+    <div class="wrapper_nav">
+
+        <div class="logo">
+          <div class="settings_icon">
+            <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
+          </div>
+          
+          <a href="">
+            <img src="" alt="" width="50" height="50">
+          </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Transporte</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Registro</a></li>
+            <li><a href="#">Ubicación</a></li>
+        </ul>
+
+        <div class="header-right">
+            <div class="home_icon">
+              <a href="../../../index.html"><ion-icon name="home-outline"></ion-icon></a>
+            </div>
+
+            <div class="user_icon">
+              <a href="../../login/index.php"><ion-icon name="person"></ion-icon></a>
+            </div>
+
+            <div class="flecha_icon">
+              <a href="../../../index.html"><ion-icon name="arrow-undo-outline"></ion-icon></a>
+            </div>
+
+        </div>
+
+    </div>
+  </nav>
+
+  
   <!-- 
   - # CALCULADORA DE FLETES
   -->
@@ -171,7 +221,9 @@ include "../../../controller/conexion.php";
         <div id="camposIncompletos-message"></div>
     
         <?php
-        if (isset($_SESSION['origen'], $_SESSION['destino'], $_SESSION['precio'])) {
+        if (isset($_GET['flete']) && $_GET['flete'] == 1) {
+
+          if (isset($_SESSION['origen'], $_SESSION['destino'], $_SESSION['precio'])) {
             $origen = htmlspecialchars($_SESSION['origen']);
             $destino = htmlspecialchars($_SESSION['destino']);
             $precio = htmlspecialchars($_SESSION['precio']);
@@ -181,9 +233,13 @@ include "../../../controller/conexion.php";
               El flete aproximado de <?php echo $origen;?> a <?php echo $destino;?> es de <?php echo $precio;?>$. <a href="https://bit.ly/Transportes-JEV">Contáctanos</a>
             </div>
 
-            <?php
-            session_unset(); // Limpiar datos después de usarlos
-            session_destroy();
+          <?php
+          }
+          ?>
+
+          <?php
+          session_unset(); // Limpiar datos después de usarlos
+          session_destroy();
 
         } else if (isset($_GET['whatsapp_url']) && isset($_GET['data']) && $_GET['data'] == 1) {
           
@@ -199,8 +255,14 @@ include "../../../controller/conexion.php";
             Ocurrió un error. Por favor, intente nuevamente
           </div>
         <?php
+        } else { ?>
+          
+          <div class="camposIncompletos-message">
+            Ocurrió un error. Por favor, intente nuevamente
+          </div>
         
-        } 
+        <?php
+        }
         ?>
      </div>
 

@@ -8,7 +8,7 @@ include "../../../controller/conexion.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcula tu flete</title>
+    <title>ADMIN Calcula tu flete</title>
 
     <!-- 
     - favicon
@@ -16,9 +16,9 @@ include "../../../controller/conexion.php";
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 
     <!-- 
-        - custom css link
+    - custom css link
     -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 
     <!--
     - google font link
@@ -28,14 +28,116 @@ include "../../../controller/conexion.php";
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+
+
+    <!--
+    - Navbar Resources
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
 </head>
 <body>
 
+  <!--=============== HEADER ===============-->
+  <header class="header" id="header">
+      <div class="header__container">
+        <a href="#" class="header__logo">
+            <i class="ri-cloud-fill"></i>
+            <span>Cloud</span>
+        </a>
+        
+        <button class="header__toggle" id="header-toggle">
+            <i class="ri-menu-line"></i>
+        </button>
+      </div>
+  </header>
+
+  <!--=============== SIDEBAR ===============-->
+  <nav class="sidebar" id="sidebar">
+      <div class="sidebar__container">
+        <div class="sidebar__user">
+            <div class="sidebar__img">
+              <img src="assets/img/perfil.png" alt="image">
+            </div>
+
+            <div class="sidebar__info">
+              <h3>Transportes JEV</h3>
+              <span>Jhonny Vegas</span>
+            </div>
+        </div>
+
+        <div class="sidebar__content">
+            <div>
+              <h3 class="sidebar__title">ADMIN</h3>
+
+              <div class="sidebar__list">
+                  <a href="../navbarOptions/camionesEdit" class="sidebar__link active-link">
+                    <i class="ri-pie-chart-2-fill"></i>
+                    <span>Camiones</span>
+                  </a>
+                  
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-wallet-3-fill"></i>
+                    <span>Fletes</span>
+                  </a>
+
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-calendar-fill"></i>
+                    <span>Usuarios</span>
+                  </a>
+
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-arrow-up-down-line"></i>
+                    <span>Calendario</span>
+                  </a>
+
+              </div>
+            </div>
+
+            <div>
+              <h3 class="sidebar__title">SETTINGS</h3>
+
+              <div class="sidebar__list">
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-settings-3-fill"></i>
+                    <span>Settings</span>
+                  </a>
+
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-mail-unread-fill"></i>
+                    <span>My Messages</span>
+                  </a>
+
+                  <a href="#" class="sidebar__link">
+                    <i class="ri-notification-2-fill"></i>
+                    <span>Notifications</span>
+                  </a>
+              </div>
+            </div>
+        </div>
+
+        <div class="sidebar__actions">
+            <button>
+              <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
+                  <span>Tema</span>
+              </i>
+            </button>
+
+            <button class="sidebar__link">
+              <i class="ri-logout-box-r-fill"></i>
+              <span>Log Out</span>
+            </button>
+        </div>
+      </div>
+  </nav>
+
+
+
+  <main class="main-p container-p" id="main">
   <!-- 
   - # CALCULADORA DE FLETES
   -->
   <section class="calculadoraSection">
-    <form action="../../../controller/actions.php" method="POST" id="fleteForm">
+    <form action="" method="POST" id="fleteForm">
     <div class="calculadora-container">
       <h1>Solicitud de Flete</h1>
     
@@ -82,7 +184,10 @@ include "../../../controller/conexion.php";
             <div class="field">
 
               <div class="plus-iconDiv">
-                <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
+
+                <a href="../calculadoraEdit/nuevoFlete.php">
+                  <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
+                </a> 
                 <label for="destino">DESTINO</label>
               </div>
                 
@@ -121,9 +226,13 @@ include "../../../controller/conexion.php";
           <div class="field">
 
             <div class="plus-iconDiv">
-              <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
+              <a href="../calculadoraEdit/nuevoCamion.php">
+                <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
+              </a> 
+              
               <label for="modelo_camion">MODELO DE CAMIÓN</label>
             </div>
+
             
             <select name="modelo_camion" id="modelo_camion" onchange="mostrarTipoyYCapacidad()">
               <option value="" disabled selected>Modelo</option>
@@ -140,10 +249,13 @@ include "../../../controller/conexion.php";
 
           <div class="field">
             
-            <div class="plus-iconDiv">
+          <div class="plus-iconDiv">
+            <a href="../calculadoraEdit/nuevoCamion.php">
               <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
-              <label for="tipo_camion">TIPO DE CAMIÓN:</label>
-            </div>
+            </a> 
+            
+            <label for="modelo_camion">TIPO DE CAMIÓN</label>
+          </div>
           
             <select name="tipo_camion" id="tipo_camion">
               <option value="" disabled selected>Tipo</option>
@@ -155,10 +267,13 @@ include "../../../controller/conexion.php";
         <div class="field-group">
           <div class="field">
 
-            <div class="plus-iconDiv">
+          <div class="plus-iconDiv">
+            <a href="../calculadoraEdit/nuevoCamion.php">
               <ion-icon name="add-circle-outline" class="plus-icon"></ion-icon>
-              <label for="capacidad_camion">CAPACIDAD DEL CAMIÓN:</label>
-            </div>
+            </a> 
+            
+            <label for="modelo_camion">CAPACIDAD DE CAMIÓN</label>
+          </div>
 
             <select name="capacidad_camion" id="capacidad_camion">
               <option value="" disabled selected>Capacidad</option>
@@ -325,11 +440,17 @@ include "../../../controller/conexion.php";
       </ul>
     </div>
   </section>
+  </main>
 
     
   <!-- 
   - Javascript file 
   <script src="./assets/js/calc.js"></script> -->
+
+  <!-- 
+  - Nav Bar Javascript file 
+  -->
+  <script src="assets/js/main.js"></script> 
 
 
   <!-- 
