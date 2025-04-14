@@ -11,65 +11,7 @@ include "../../../../controller/conexion.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editar Camión</title>
-    <link rel="stylesheet" href="styles.css" />
-
-    <style>
-    table {
-        width: 100%;
-        margin: 20px 0;
-        font-size: 18px;
-        text-align: left;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        overflow: hidden;
-
-    }
-
-    thead {
-        background: linear-gradient(to right, #3b82f6, #06b6d4);
-        color: white;
-    }
-
-    th, td {
-        padding: 12px 15px;
-    }
-
-    tr {
-        border-bottom: 1px solid #dddddd;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f3f3f3;
-    }
-
-    tr:hover {
-        background-color: #d1e7ff;
-        transition: 0.3s ease-in-out;
-    }
-
-    .status {
-        font-weight: bold;
-        padding: 5px 10px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    .status.delivered {
-        background-color: #22c55e;
-        color: white;
-    }
-
-    .status.cancelled {
-        background-color: #ef4444;
-        color: white;
-    }
-
-    .status.pending {
-        background-color: #facc15;
-        color: black;
-    }
-
-    </style>
+    <link rel="stylesheet" href="estilos.css" />
   </head>
   <body>
 
@@ -83,42 +25,52 @@ include "../../../../controller/conexion.php";
             // Obtener el id_camion desde la URL
             $id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Convierte a número para seguridad
 
-            // Consulta con parámetro correctamente colocado
             $queryCamion = "SELECT * FROM camiones WHERE id_camion = ?";
             $stmt = $conex->prepare($queryCamion);
-            $stmt->bind_param("i", $id); // Vincula el id como entero
+            $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
+            
+            // Guardar todos los datos en un array
+            $consulta = $result->fetch_all(MYSQLI_ASSOC);
             ?>
+            
+            <div class="title-table">
+                <p>
+                    <?php echo "Modelo del camión: " . $consulta[0]['modelo_camion']; ?>
+                </p>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Tipo</th>
+                            <th>Capacidad</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($consulta as $fila) { ?>
+                        <tr>
+                            <td><?php echo $fila['id_camion']; ?></td>
+                            <td><?php echo $fila['modelo_camion']; ?></td>
+                            <td><?php echo $fila['tipo_camion']; ?></td>
+                            <td><?php echo $fila['capacidad_camion']; ?></td>
+                            <td><?php echo $fila['status_camion']; ?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Modelo</th>
-                        <th>Tipo</th>
-                        <th>Capacidad</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($fila = $result->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo $fila['id_camion']; ?></td>
-                        <td><?php echo $fila['modelo_camion']; ?></td>
-                        <td><?php echo $fila['tipo_camion']; ?></td>
-                        <td><?php echo $fila['capacidad_camion']; ?></td>
-                        <td><?php echo $fila['status_camion']; ?></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-
-
-            <div class="images-wrapper">             
+            <!-- <div class="images-wrapper">             
               <img src="./assets/img/image2.png" class="image img-2" alt="" />
               <img src="./assets/img/image3.png" class="image img-3" alt="" />
-            </div>
+            </div> 
 
             <div class="text-slider">
               <div class="text-wrap">
@@ -127,14 +79,14 @@ include "../../../../controller/conexion.php";
                   <h2>Monitorea en tiempo real</h2>
                   <h2>¡Únete al equipo!</h2>
                 </div>
-              </div>
+              </div> 
 
               <div class="bullets">
                 <span class="active" data-value="1"></span>
                 <span data-value="2"></span>
                 <span data-value="3"></span>
               </div>
-            </div>
+            </div>-->
           </div>
       
         
@@ -210,6 +162,7 @@ include "../../../../controller/conexion.php";
                 <div class="input-wrap formulario__grupo">
                   <div class="formulario__grupo-input">
                     <select name="nuevo_status" id="nuevo_status">
+                      <option value="" SELECTED DISABLED>Status</option>
                       <option value="Disponible">Disponible</option>
                       <option value="No disponible">No disponible</option>
                       <option value="Reparando">Reparando</option>

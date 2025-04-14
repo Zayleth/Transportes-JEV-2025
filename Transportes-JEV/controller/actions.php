@@ -334,7 +334,7 @@ switch ($hidden) {
             // Verificar si la actualización fue exitosa
             if ($stmt->affected_rows > 0) {
                 echo $id_camion_mod;
-                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?success=3");
+                header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");
             } else {
                 header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
             }
@@ -346,9 +346,24 @@ switch ($hidden) {
         
         $conex->close();
         exit;
-        
-
+        break;
     
+    // FUNCION ADMIN CAMIONES REGISTRADOS - NAVBAR OPTIONS - ELIMINAR CAMIÓN
+    case 8:
+        $id_camionEliminar = $_POST['id_camionEliminar'];
+
+        $query = "DELETE FROM camiones WHERE id_camion = ?";
+        $stmt = $conex->prepare($query);
+        $stmt->bind_param("i", $id_camionEliminar);
+
+        if ($stmt->execute()) {
+            echo "<script>window.location.href='../view/pantallaAdmin/navbarOptions/camionesRegistrados.php';</script>"; // Redirige después
+        } else {
+            echo "<script>alert('Error al eliminar el elemento')</script>";
+        }
+
+        $stmt->close();
+        break;
 }       
 
 

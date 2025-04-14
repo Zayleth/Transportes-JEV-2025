@@ -13,7 +13,7 @@ include "../../../controller/conexion.php";
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
 
       <!--=============== CSS ===============-->
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="styless.css">
 
       <title>Camiones Registrados</title>
    </head>
@@ -171,7 +171,11 @@ include "../../../controller/conexion.php";
                                           <?php 
                                           $string = $row['status_camion'];
 
-                                          if (strtolower($string) === "disponible") { ?> 
+                                          if ($string === "") { ?> 
+                                                <p class="status delivered"><?php echo "Disponible"; ?></p>
+
+                                          <?php
+                                          } else if (strtolower($string) === "disponible") { ?> 
                                                 <p class="status delivered"><?php echo $row['status_camion']; ?></p>
 
                                           <?php
@@ -199,7 +203,23 @@ include "../../../controller/conexion.php";
                                           </div>
                                     </td>
 
-                                    <td><div class="table-icon"><ion-icon name="trash-outline"></ion-icon></div></td>
+                                    <td>
+                                          <form action="../../../controller/actions.php" method="POST" onsubmit="return confirmarEliminacionCamion()">
+                                                <input type="hidden" name="hidden" value="8">
+                                                <input type="hidden" name="id_camionEliminar" value="<?php echo $row['id_camion']; ?>">
+
+                                                <button type="submit" class="table-icon">
+                                                      <ion-icon name="trash-outline"></ion-icon>
+                                                </button> 
+                                          </form>
+
+                                    </td>
+
+                                    <script>
+                                          function confirmarEliminacionCamion() {
+                                                return confirm("¿Seguro que quieres borrar este elemento?");
+                                          }
+                                    </script>
                                     
                               </tr>
                               <?php } ?>
