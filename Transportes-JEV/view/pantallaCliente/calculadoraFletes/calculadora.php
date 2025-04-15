@@ -30,16 +30,6 @@ include "../../../controller/conexion.php";
         rel="stylesheet">
 </head>
 <body>
-<!--
-  <header class="header">
-    <nav class="menu">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#regresar">Regresar</a></li>
-      </ul>
-    </nav>
-  </header> -->
 
   <nav>
     <div class="wrapper_nav">
@@ -254,16 +244,11 @@ include "../../../controller/conexion.php";
           <div class="camposIncompletos-message">
             Ocurrió un error. Por favor, intente nuevamente
           </div>
-        <?php
-        } else { ?>
-          
-          <div class="camposIncompletos-message">
-            Ocurrió un error. Por favor, intente nuevamente
-          </div>
         
         <?php
-        }
+        } 
         ?>
+          
      </div>
 
     <input type="hidden" name="hidden" value="4" />

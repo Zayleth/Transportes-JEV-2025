@@ -211,29 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// TO FIX
-
-//Funcionalidad - ojo password LOGIN 
-/*
-document.addEventListener("DOMContentLoaded", () => {
-  const pass_LOGIN = document.getElementById("passwordLogIn");
-  const icono_EYE = document.getElementById("password-eye");
-
-  icono_EYE.addEventListener("click", () => {
-      // Cambiar el tipo del input entre "password" y "text"
-      if (pass_LOGIN.type === "password") {
-          pass_LOGIN.type = "text"; // Mostrar la contraseña
-          icono_EYE.classList.remove("fa-eye"); // Eliminar clase de "ojo abierto"
-          icono_EYE.classList.add("fa-eye-slash"); // Agregar clase de "ojo cerrado"
-      } else {
-          pass_LOGIN.type = "password"; // Ocultar la contraseña
-          icono_EYE.classList.remove("fa-eye-slash"); // Eliminar clase de "ojo cerrado"
-          icono_EYE.classList.add("fa-eye"); // Agregar clase de "ojo abierto"
-      }
-  });
-});
-*/
-
 // Mensaje de error - Correo ya existente
 
 document.addEventListener("DOMContentLoaded", () => {

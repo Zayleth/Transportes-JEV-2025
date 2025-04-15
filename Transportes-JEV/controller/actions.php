@@ -93,13 +93,14 @@ switch ($hidden) {
         
             // Redirigir según el rol
             if ($fila['id_cargo'] == 1) {
-                header("location:../view/pantallaAdmin/calculadoraFletes/calculadora.html");
+                header("location:../view/pantallaAdmin/calculadoraFletesAdmin/calculadora.php");
             } else if ($fila['id_cargo'] == 2) {
-                header("location:../view/pantallaCliente/prueba.php");
+                header("location:../view/pantallaCliente/calculadoraFletes/calculadora.php");
             }
             exit;
+
         } else {
-            // Redirigir con un mensaje genérico de error
+            // Redirigir con un mensaje genérico de error | Correo o contraseña erróneos
             header("location:../view/login/index.php?errorDatos=1");
             exit;
         }
@@ -145,18 +146,18 @@ switch ($hidden) {
     case 4: 
         session_start();
         // Consulta optimizada con filtro
-        $query = "SELECT modelo_camion, tipo_camion, capacidad_camion FROM camiones WHERE modelo_camion = ? AND tipo_camion = ?";
+        $query = "SELECT origen_viaje, destino_viaje, precio_viaje FROM viajes WHERE origen_viaje = ? AND destino_viaje = ?";
         $stmt = $conex->prepare($query); // Uso de consultas preparadas
-        $stmt->bind_param("ss", $modelo_camion, $tipo_camion);
+        $stmt->bind_param("ss", $origen_viaje, $destino_viaje);
         $stmt->execute();
         $resultado = $stmt->get_result();
         $fila = $resultado->fetch_assoc();
         
         if ($fila) {
             // Almacenar los datos en sesión
-            $_SESSION['modelo'] = $fila["modelo_camion"];
-            $_SESSION['tipo'] = $fila["tipo_camion"];
-            $_SESSION['capacidad'] = $fila["capacidad_camion"];
+            $_SESSION['origen'] = $fila["origen_viaje"];
+            $_SESSION['destino'] = $fila["destino_viaje"];
+            $_SESSION['precio'] = $fila["precio_viaje"];
         
             // Redirigir sin exponer información en la URL
             header("Location: ../view/pantallaCliente/calculadoraFletes/calculadora.php?flete=1");
@@ -164,12 +165,12 @@ switch ($hidden) {
 
         } else {
            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['modelo_camion']) && !empty($_POST['tipo_camion'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['origen_viaje']) && !empty($_POST['destino_viaje'])) {
                 
-                $modelo = urlencode($_POST['modelo_camion']);
-                $tipo = urlencode($_POST['tipo_camion']);
+                $origen = urlencode($_POST['origen_viaje']);
+                $destino = urlencode($_POST['destino_viaje']);
                 //$whatsapp_url = "https://wa.me/584143991619?text=Hola,%20solicito%20un%20flete%20desde%20" . $modelo . "%20hacia%20" . $tipo .".%20Quedo%20atento(a)%20a%20su%20respuesta";
-                $whatsapp_url = "https://wa.me/584143991619?text=" . urlencode("Hola, solicito un flete desde $modelo hacia $tipo. Quedo atento(a) a su respuesta");
+                $whatsapp_url = "https://wa.me/584143991619?text=" . urlencode("Hola, solicito un flete desde $origen hacia $destino. Quedo atento(a) a su respuesta");
 
                 // Redirigir al archivo calculadora.php con el enlace de WhatsApp como parámetro
                 $redirect_url = "../view/pantallaCliente/calculadoraFletes/calculadora.php?data=1&whatsapp_url=" . urlencode($whatsapp_url);

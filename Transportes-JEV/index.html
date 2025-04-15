@@ -15,7 +15,7 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="a.css">
+  <link rel="stylesheet" href="styles.css">
 
   <!--
     - google font link
@@ -82,7 +82,7 @@
           </li>
 
           <li class="navbar-item">
-            <a href="#registro" class="navbar-link" data-nav-link>
+            <a href="./view/login/index.php" class="navbar-link" data-nav-link>
               <div class="header-span"><span>Registro</span></div>
 
               <ion-icon name="chevron-forward"></ion-icon>
@@ -146,7 +146,7 @@
             </h2>
 
             <p class="hero-text">
-              There are many variations of passages of worem Ipsum available, but the majority
+              Comprometidos a ofrecer soluciones de excelencia, haciendo de tu destino nuestra prioridad
             </p>
 
             <a href="./view/pantallaCliente/calculadoraFletes/calculadora.php" class="btn-outline">Cotiza tu flete</a>
@@ -190,8 +190,6 @@
             <h2 class="h2 section-title">Empresa de Logística y Carga</h2>
 
             <p class="section-text">
-              Comprometidos a ofrecer soluciones de excelencia, haciendo de 
-              tu destino nuestra máxima prioridad.
             </p>
 
             <ul class="about-list">
@@ -207,15 +205,15 @@
                 </p>
               </li>
 
-              <!-- <li class="about-item">
+              <li class="about-item">
                 <div class="about-icon">
                   <ion-icon name="chevron-forward"></ion-icon>
-                </div> -->
+                </div> 
 
-                <!-- <p class="about-text">
-                  Nos adaptamos a lo que necesites. Ofrecer soluciones personalizadas 
-                  y flexibles es prioridad.
-                </p> -->
+                <p class="about-text">
+                  Nos adaptamos a lo que necesites. Ofrecemos soluciones personalizadas 
+                  y flexibles
+                </p>
               </li>
 
               <li class="about-item">
@@ -244,7 +242,7 @@
                 </div>
 
                 <p class="about-text"> 
-                  La integridad y seguridad de tu mercancía durante todo el trayecto, está garantizada
+                  Integridad y seguridad de mercancía garantizada
                 </p>
               </li>
 
@@ -254,7 +252,7 @@
                 </div>
 
                 <p class="about-text">
-                  La calidad nunca pasa de moda. Seguridad, calidad, profesionalismo
+                  Seguridad, calidad, profesionalismo
                 </p>
               </li>
 
@@ -282,12 +280,6 @@
 
           <h2 class="h2 section-title">Destacados por Calidad</h2>
 
-          <p class="section-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since
-            the when an
-            printer took.
-          </p>
-
           <ul class="service-list grid-list">
 
             <li>
@@ -306,7 +298,7 @@
                  punto de origen hasta el destino final.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -330,7 +322,7 @@
                   Cada camión cuenta con tecnología para rastrear y monitorear envíos en tiempo real.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -355,7 +347,7 @@
                   materiales peligrosos y químicos.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -380,7 +372,7 @@
                   los detalles de tu envío en nuestra plataforma en línea.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -404,7 +396,7 @@
                   Búsqueda y entrega de mercancías en destinos específicos dentro del país.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -429,7 +421,7 @@
                   ofrecerle un servicio de excelencia.
                 </p>
 
-                <a href="#" class="btn-link">
+                <a href="#servicios" class="btn-link">
                   <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                   <span class="span">Ver Detalles</span>
@@ -450,19 +442,15 @@
 
       <section class="section newsletter" id="registro" aria-label="newsletter">
         <div class="container">
-
           <figure class="newsletter-banner img-holder">
-            <img src="./assets/images/camion.png" width="303" height="381" alt="newsletter banner"
-              class=""> <!-- class = "w-100" -->
+            <img src="./assets/images/camiones_3.png" width="603" height="681" alt="newsletter banner"
+              class="w-100">
           </figure>
 
           <div class="newsletter-content">
-
-            <h2 class="h2 section-title">Nuestras Ofertas</h2>
-            <a href="./view/login/index.php"><button type="submit" class="newsletter-btn">Regístrate</button></a>
-
+            <h2 class="h2 section-title"></h2>
+            <a href="./view/login/index.php"><button type="submit" class="newsletter-btn">¿Más Información?</button></a>
           </div>
-
         </div>
       </section>
 
@@ -507,7 +495,7 @@
 
                 <div class="form-group">
                   <label for="email">Correo</label>
-                  <input type="email" id="email" placeholder="Tu correo">
+                  <input type="email" id="email" placeholder="Tu correo" required>
                 </div>
               </div>
 

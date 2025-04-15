@@ -23,8 +23,7 @@ include "../../../controller/conexion.php";
       <header class="header" id="header">
             <div class="header__container">
             <a href="#" class="header__logo">
-                  <i class="ri-cloud-fill"></i>
-                  <span>Cloud</span>
+                  <span>Transportes JEV</span>
             </a>
             
             <button class="header__toggle" id="header-toggle">
@@ -86,12 +85,12 @@ include "../../../controller/conexion.php";
 
                         <a href="#" class="sidebar__link">
                         <i class="ri-mail-unread-fill"></i>
-                        <span>My Messages</span>
+                        <span>Mensajes</span>
                         </a>
 
                         <a href="#" class="sidebar__link">
                         <i class="ri-notification-2-fill"></i>
-                        <span>Notifications</span>
+                        <span>Notificaciones</span>
                         </a>
                   </div>
                   </div>
@@ -106,7 +105,7 @@ include "../../../controller/conexion.php";
 
                   <button class="sidebar__link">
                   <i class="ri-logout-box-r-fill"></i>
-                  <span>Log Out</span>
+                  <span>Cerrar Sesión</span>
                   </button>
             </div>
          </div>

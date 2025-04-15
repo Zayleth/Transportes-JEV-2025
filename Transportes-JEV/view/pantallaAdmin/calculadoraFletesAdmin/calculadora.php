@@ -41,8 +41,7 @@ include "../../../controller/conexion.php";
   <header class="header" id="header">
       <div class="header__container">
         <a href="#" class="header__logo">
-            <i class="ri-cloud-fill"></i>
-            <span>Cloud</span>
+            <span>Transportes JEV</span>
         </a>
         
         <button class="header__toggle" id="header-toggle">
@@ -70,7 +69,7 @@ include "../../../controller/conexion.php";
               <h3 class="sidebar__title">ADMIN</h3>
 
               <div class="sidebar__list">
-                  <a href="../navbarOptions/camionesEdit" class="sidebar__link active-link">
+                  <a href="../navbarOptions/camionesRegistrados.php" class="sidebar__link active-link">
                     <i class="ri-pie-chart-2-fill"></i>
                     <span>Camiones</span>
                   </a>
@@ -104,12 +103,12 @@ include "../../../controller/conexion.php";
 
                   <a href="#" class="sidebar__link">
                     <i class="ri-mail-unread-fill"></i>
-                    <span>My Messages</span>
+                    <span>Mensajes</span>
                   </a>
 
                   <a href="#" class="sidebar__link">
                     <i class="ri-notification-2-fill"></i>
-                    <span>Notifications</span>
+                    <span>Notificaciones</span>
                   </a>
               </div>
             </div>
@@ -124,7 +123,7 @@ include "../../../controller/conexion.php";
 
             <button class="sidebar__link">
               <i class="ri-logout-box-r-fill"></i>
-              <span>Log Out</span>
+              <span>Cerrar Sesión</span>
             </button>
         </div>
       </div>
@@ -362,7 +361,7 @@ include "../../../controller/conexion.php";
   - #FEATURE
   -->
 
-  <section class="section feature" aria-label="feature">
+  <section class="section feature" aria-label="feature" id="feature">
     <div class="container">
 
       <div class="title-wrapper">
@@ -394,7 +393,7 @@ include "../../../controller/conexion.php";
               Al ponerte en contacto con nosotros, analizamos tus necesidades, seleccionamos el transporte ideal 
               y planificamos la ruta más eficiente.</p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a href="#feature" class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
           </div>
@@ -412,7 +411,7 @@ include "../../../controller/conexion.php";
               Garantizando que el desarrollo siga lo establecido.
             </p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a href="#feature" class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
 
@@ -431,7 +430,7 @@ include "../../../controller/conexion.php";
               y se recoge retroalimentación del cliente.
             </p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a href="#feature" class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
 

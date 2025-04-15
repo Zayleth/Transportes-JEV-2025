@@ -162,7 +162,7 @@
                       autocomplete="off"
                       required
                     />
-                    <label for="password" class="formulario__label">Contraseña</label>
+                    <label for="passwordRegister" class="formulario__label">Contraseña</label>
                     <i class="fa-regular fa-eye" id="password-eye"></i>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
