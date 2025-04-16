@@ -15,7 +15,7 @@ include "../../../controller/conexion.php";
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="styles.css">
 
-      <title>Camiones Registrados</title>
+      <title>Fletes Existentes</title>
    </head>
    <body>
       
@@ -51,12 +51,12 @@ include "../../../controller/conexion.php";
                   <h3 class="sidebar__title">ADMIN</h3>
 
                   <div class="sidebar__list">
-                        <a href="camionesRegistrados.php" class="sidebar__link active-link">
+                        <a href="camionesRegistrados.php" class="sidebar__link">
                         <i class="ri-pie-chart-2-fill"></i>
                         <span>Camiones</span>
                         </a>
                         
-                        <a href="fletesExistentes.php" class="sidebar__link">
+                        <a href="fletesExistentes.php" class="sidebar__link active-link">
                         <i class="ri-wallet-3-fill"></i>
                         <span>Fletes</span>
                         </a>
@@ -115,8 +115,8 @@ include "../../../controller/conexion.php";
       <section class="main container" id="main">
 
             <?php
-            $queryCamiones = "SELECT * FROM camiones"; 
-            $stmt = $conex->prepare($queryCamiones);
+            $queryFletes = "SELECT * FROM viajes"; 
+            $stmt = $conex->prepare($queryFletes);
             $stmt->execute();
             $result = $stmt->get_result();
             ?>
@@ -124,7 +124,7 @@ include "../../../controller/conexion.php";
             <main class="table" id="customers_table">
                   
                   <section class="table__header">
-                        <h1>Camiones Registrados</h1>
+                        <h1>Fletes Existentes</h1>
                         <div class="input-group">
                         <input type="search" placeholder="Buscar">
                         <img src="images/search.png" alt="">
@@ -147,10 +147,9 @@ include "../../../controller/conexion.php";
                               <tr>
                                     <th> Id </th>
                                     <th> Referencia </th>
-                                    <th> Modelo </th>
-                                    <th> Tipo </th>
-                                    <th> Capacidad <span class="icon-arrow">&UpArrow;</span></th> 
-                                    <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Origen </th>
+                                    <th> Destino </th>
+                                    <th> Precio <span class="icon-arrow">&UpArrow;</span></th> 
                                     <th> Editar </th>
                                     <th> Eliminar </th>
                               </tr>
@@ -159,51 +158,24 @@ include "../../../controller/conexion.php";
                               <tbody>
                               <?php while ($row = $result->fetch_assoc()) { ?>
                               <tr>
-                                    <td><?php echo $row['id_camion']; ?></td>
-                                    <td><img src="./images/camionRegistrado.png" alt="Camion"></td>
-                                    <td><?php echo $row['modelo_camion']; ?></td>
-                                    <td><?php echo $row['tipo_camion']; ?></td>
-                                    <td><?php echo $row['capacidad_camion'] ." kg"; ?></td>
-                                    <td>
-                                          <?php 
-                                          $string = $row['status_camion'];
-
-                                          if ($string === "") { ?> 
-                                                <p class="status delivered"><?php echo "Disponible"; ?></p>
-
-                                          <?php
-                                          } else if (strtolower($string) === "disponible") { ?> 
-                                                <p class="status delivered"><?php echo $row['status_camion']; ?></p>
-
-                                          <?php
-                                          } else if (strtolower($string) === "no disponible") { ?>
-                                                <p class="status cancelled"><?php echo $row['status_camion']; ?></p>
-                                          
-                                          <?php
-                                          } else if (strtolower($string) === "reparando") { ?>
-                                                <p class="status pending"><?php echo $row['status_camion']; ?></p>
-                                          
-                                          <?php
-                                          } else { ?>
-                                                <p class="status cancelled"><?php echo "Error" ?></p>
-
-                                          <?php
-                                          }
-                                          ?>
-                                    </td>
+                                    <td><?php echo $row['id_viaje']; ?></td>
+                                    <td><img src="./images/fleteExistente.png" alt="Ruta"></td>
+                                    <td><?php echo $row['origen_viaje']; ?></td>
+                                    <td><?php echo $row['destino_viaje']; ?></td>
+                                    <td><?php echo $row['precio_viaje'] ."$"; ?></td>
 
                                     <td>
                                           <div class="table-icon">
-                                                <a href="./editarC-F-U/editarCamion.php?id=<?php echo $row['id_camion']; ?>">
+                                                <a href="./editarC-F-U/editarFlete.php?id=<?php echo $row['id_viaje']; ?>">
                                                       <ion-icon name="create-outline"></ion-icon>
                                                 </a>
                                           </div>
                                     </td>
 
                                     <td>
-                                          <form action="../../../controller/actions.php" method="POST" onsubmit="return confirmarEliminacionCamion()">
-                                                <input type="hidden" name="hidden" value="8">
-                                                <input type="hidden" name="id_camionEliminar" value="<?php echo $row['id_camion']; ?>">
+                                          <form action="../../../controller/actions.php" method="POST" onsubmit="return confirmarEliminacionFlete()">
+                                                <input type="hidden" name="hidden" value="10">
+                                                <input type="hidden" name="id_fleteEliminar" value="<?php echo $row['id_viaje']; ?>">
 
                                                 <button type="submit" class="table-icon">
                                                       <ion-icon name="trash-outline"></ion-icon>
@@ -213,8 +185,8 @@ include "../../../controller/conexion.php";
                                     </td>
 
                                     <script>
-                                          function confirmarEliminacionCamion() {
-                                                return confirm("¿Seguro que quieres borrar este elemento?");
+                                          function confirmarEliminacionFlete() {
+                                                return confirm("¿Deseas eliminar este flete?");
                                           }
                                     </script>
                                     

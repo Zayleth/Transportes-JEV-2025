@@ -18,7 +18,7 @@ include "../../../controller/conexion.php";
     <!-- 
         - custom css link
     -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 
     <!--
     - google font link

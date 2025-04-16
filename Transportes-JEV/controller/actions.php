@@ -67,8 +67,10 @@ switch ($hidden) {
 
         if ($stmt->execute()) {
             header("location:../view/login/index.php?show=register&usuarioRegistrado=1"); // Usuario Registrado
+            exit;
         } else {
             header("location:../view/login/index.php?show=register&errorRegistro=2"); // Error de registro
+            exit;
         }
         exit;
         break;
@@ -94,8 +96,10 @@ switch ($hidden) {
             // Redirigir según el rol
             if ($fila['id_cargo'] == 1) {
                 header("location:../view/pantallaAdmin/calculadoraFletesAdmin/calculadora.php");
+                exit;
             } else if ($fila['id_cargo'] == 2) {
                 header("location:../view/pantallaCliente/calculadoraFletes/calculadora.php");
+                exit;
             }
             exit;
 
@@ -130,11 +134,14 @@ switch ($hidden) {
             // Verificar si se actualizó correctamente
             if ($stmt->affected_rows > 0) {
                 header("location:../view/login/assets/olvido_pass.php?success=1"); // Contraseña actualizada
+                exit;
             } else {
                 header("location:../view/login/assets/olvido_pass.php?fallo=1"); // Error en la actualización
+                exit;
             }
         } else {
             header("location:../view/login/assets/olvido_pass.php?error=2"); // Correo no encontrado
+            exit;
         }
 
         // Cerrar conexiones
@@ -180,6 +187,7 @@ switch ($hidden) {
             } else {
                 //echo "<p>Error: Datos del formulario incompletos.</p>";
                 header("Location: ../view/pantallaCliente/calculadoraFletes/calculadora.php?data=2");
+                exit;
             }
             
             
@@ -316,6 +324,7 @@ switch ($hidden) {
         mysqli_stmt_close($stmt);
         header("location:../view/pantallaAdmin/calculadoraEdit/nuevoCamion.php?success=3");
         exit;
+
         break;
 
     // FUNCION ADMIN CAMIONES REGISTRADOS - NAVBAR OPTIONS - EDITAR CAMIÓN
@@ -334,15 +343,19 @@ switch ($hidden) {
         
             // Verificar si la actualización fue exitosa
             if ($stmt->affected_rows > 0) {
-                echo $id_camion_mod;
                 header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");
+                exit;
             } else {
-                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
+                header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");
+                exit;
+                //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
             }
         
             $stmt->close();
-        } else {          
-            header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
+        } else {  
+            header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");  
+            exit;      
+            //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
         }
         
         $conex->close();
@@ -361,6 +374,114 @@ switch ($hidden) {
             echo "<script>window.location.href='../view/pantallaAdmin/navbarOptions/camionesRegistrados.php';</script>"; // Redirige después
         } else {
             echo "<script>alert('Error al eliminar el elemento')</script>";
+        }
+
+        $stmt->close();
+        break;
+
+    // FUNCION ADMIN FLETES EXISTENTES - NAVBAR OPTIONS - EDITAR FLETE
+    case 9:
+        // Obtener el ID desde la URL con seguridad
+        $id_flete_mod = isset($_POST['id_flete']) ? intval($_POST['id_flete']) : 0;            
+
+        // Asegurarse de que el ID es válido antes de ejecutar la consulta
+        if ($id_flete_mod > 0) {
+            // Consulta preparada
+            $query = "UPDATE viajes SET origen_viaje = ?, destino_viaje = ?, precio_viaje = ? WHERE id_viaje = ?";
+            
+            $stmt = $conex->prepare($query);
+            $stmt->bind_param("ssii", $origen, $destino, $capacidad, $id_flete_mod); /* NOTA: el nombre de las variables es para optimizar el filtro de datos JS */
+            $stmt->execute();
+        
+            // Verificar si la actualización fue exitosa
+            if ($stmt->affected_rows > 0) {
+                header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");
+                exit;
+            } else {
+                header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");
+                exit;
+                //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=2");
+            }
+        
+            $stmt->close();
+        } else {
+            header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");    
+            exit;      
+            //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=2");
+        }
+        
+        $conex->close();
+        exit;
+        break;
+
+    // FUNCION ADMIN FLETES EXISTENTES - NAVBAR OPTIONS - ELIMINAR FLETE
+    case 10:
+        $id_fleteEliminar = $_POST['id_fleteEliminar'];
+
+        $queryEliminarFlete = "DELETE FROM viajes WHERE id_viaje = ?";
+        $stmt = $conex->prepare($queryEliminarFlete);
+        $stmt->bind_param("i", $id_fleteEliminar);
+
+        if ($stmt->execute()) {
+            echo "<script>window.location.href='../view/pantallaAdmin/navbarOptions/fletesExistentes.php';</script>"; // Redirige después
+        } else {
+            echo "<script>alert('Error al eliminar el flete')</script>";
+        }
+
+        $stmt->close();
+        break;
+
+    // FUNCION ADMIN USUARIOS REGISTRADOS - NAVBAR OPTIONS - EDITAR USUARIO
+    case 11:
+        $verificar_cargo = $conex->prepare("SELECT id FROM cargos WHERE id = ?");
+        $verificar_cargo->bind_param("i", $nuevo_cargo);
+        $verificar_cargo->execute();
+        $verificar_cargo->store_result();
+
+        if ($verificar_cargo->num_rows === 0) {
+            header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=1");
+            // echo "Error: El cargo seleccionado no es válido.";
+            exit;
+        }
+
+        $id_usuario_mod = isset($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;            
+
+        if ($id_usuario_mod > 0) {
+            // Consulta preparada
+            $query = $query = "UPDATE usuarios SET nombre_usuario = ?, id_cargo = ? WHERE id_usuario = ?";
+            $stmt = $conex->prepare($query);
+            $stmt->bind_param("sii", $nuevo_nombre_user, $nuevo_cargo, $id_usuario_mod);
+            $stmt->execute();
+        
+            if ($stmt->affected_rows > 0) {
+                header("location:../view/pantallaAdmin/navbarOptions/usuariosRegistrados.php");
+                exit;
+            } else {
+                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=2");
+                exit;
+            }
+
+        } else {
+            header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=2");
+            exit;
+        }
+        
+        $conex->close();
+        exit;
+        break;
+
+    // FUNCION ADMIN USUARIOS REGISTRADOS - NAVBAR OPTIONS - ELIMINAR USUARIO
+    case 12:
+        $id_usuarioEliminar = $_POST['id_usuarioEliminar'];
+
+        $queryEliminarUsuario = "DELETE FROM usuarios WHERE id_usuario = ?";
+        $stmt = $conex->prepare($queryEliminarUsuario);
+        $stmt->bind_param("i", $id_usuarioEliminar);
+
+        if ($stmt->execute()) {
+            echo "<script>window.location.href='../view/pantallaAdmin/navbarOptions/usuariosRegistrados.php';</script>"; // Redirige después
+        } else {
+            echo "<script>alert('Error al eliminar el usuario')</script>";
         }
 
         $stmt->close();

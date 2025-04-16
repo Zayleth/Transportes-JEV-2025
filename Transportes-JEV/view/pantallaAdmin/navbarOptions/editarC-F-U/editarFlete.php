@@ -10,7 +10,7 @@ include "../../../../controller/conexion.php";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editar Camión</title>
+    <title>Editar Flete</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -25,8 +25,8 @@ include "../../../../controller/conexion.php";
             // Obtener el id_camion desde la URL
             $id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Convierte a número para seguridad
 
-            $queryCamion = "SELECT * FROM camiones WHERE id_camion = ?";
-            $stmt = $conex->prepare($queryCamion);
+            $queryFlete = "SELECT * FROM viajes WHERE id_viaje = ?";
+            $stmt = $conex->prepare($queryFlete);
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -37,7 +37,7 @@ include "../../../../controller/conexion.php";
             
             <div class="title-table">
                 <p>
-                    <?php echo "Modelo del camión: " . $consulta[0]['modelo_camion']; ?>
+                    <?php echo "Flete: " . $consulta[0]['origen_viaje'] . " - " . $consulta[0]['destino_viaje']; ?>
                 </p>
             </div>
             
@@ -46,52 +46,28 @@ include "../../../../controller/conexion.php";
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Modelo</th>
-                            <th>Tipo</th>
-                            <th>Capacidad</th>
-                            <th>Status</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Precio</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($consulta as $fila) { ?>
                         <tr>
-                            <td><?php echo $fila['id_camion']; ?></td>
-                            <td><?php echo $fila['modelo_camion']; ?></td>
-                            <td><?php echo $fila['tipo_camion']; ?></td>
-                            <td><?php echo $fila['capacidad_camion']; ?></td>
-                            <td><?php echo $fila['status_camion']; ?></td>
+                            <td><?php echo $fila['id_viaje']; ?></td>
+                            <td><?php echo $fila['origen_viaje']; ?></td>
+                            <td><?php echo $fila['destino_viaje']; ?></td>
+                            <td><?php echo $fila['precio_viaje']; ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
-            
-
-            <!-- <div class="images-wrapper">             
-              <img src="./assets/img/image2.png" class="image img-2" alt="" />
-              <img src="./assets/img/image3.png" class="image img-3" alt="" />
-            </div> 
-
-            <div class="text-slider">
-              <div class="text-wrap">
-                <div class="text-group">
-                  <h2>En cada punto del país</h2>
-                  <h2>Monitorea en tiempo real</h2>
-                  <h2>¡Únete al equipo!</h2>
-                </div>
-              </div> 
-
-              <div class="bullets">
-                <span class="active" data-value="1"></span>
-                <span data-value="2"></span>
-                <span data-value="3"></span>
-              </div>
-            </div>-->
           </div>
       
         
           <div class="forms-wrap">
-            <!-- Nuevo Camión Form -->
+            <!-- Nuevo Flete Form -->
             <form action="../../../../controller/actions.php" method="POST" autocomplete="off" class="sign-up-form" class="register-form formulario" id="formulario">
               <div class="logo">
                 <img src="./assets/img/logo.png" alt="easyclass" />
@@ -99,76 +75,61 @@ include "../../../../controller/conexion.php";
               </div>
 
               <div class="heading">
-                <h2>Editar Camión</h2>
+                <h2>Editar Flete</h2>
                 <h6></h6>
               </div>
 
               <div class="actual-form">
-                <!-- Grupo: Modelo de Camion -->
+                <!-- Grupo: Origen -->
                 <div class="input-wrap formulario__grupo" id="grupo__origen">
                   <div class="formulario__grupo-input">
                     <input 
                       type="text" 
                       class="input-field formulario__input" 
                       name="origen" 
-                      id="modelo" 
+                      id="origen" 
                       autocomplete="off"
                       required>
                   
-                    <label for="modelo" class="formulario__label">Modelo</label>
+                    <label for="origen" class="formulario__label">Origen</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El modelo solo puede contener letras, espacios y acentos</p>
+                  <p class="formulario__input-error">El origen solo puede contener letras, espacios y acentos</p>
                 </div>
 
                 
-                <!-- Grupo: Tipo -->
+                <!-- Grupo: Destino -->
                 <div class="input-wrap formulario__grupo" id="grupo__destino">
                   <div class="formulario__grupo-input">
                     <input
                       type="text"
                       class="input-field formulario__input"
                       name="destino"
-                      id="tipo"
+                      id="destino"
                       autocomplete="off"
                       required
                     />
-                    <label for="tipo" class="formulario__label">Tipo</label>
+                    <label for="destino" class="formulario__label">Destino</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">El tipo solo puede contener letras, espacios y acentos</p>
+                  <p class="formulario__input-error">El destino solo puede contener letras, espacios y acentos</p>
                 </div>
         
-                <!-- Grupo: Capacidad -->
+                <!-- Grupo: Precio -->
                 <div class="input-wrap formulario__grupo" id="grupo__capacidad">
                   <div class="formulario__grupo-input">
                     <input
                       type="text"
                       class="input-field formulario__input"
                       name="capacidad"
-                      id="capacidad"
+                      id="precio"
                       autocomplete="off"
                       required
                     />
-                    <label for="capacidad" class="formulario__label">Capacidad</label>
+                    <label for="precio" class="formulario__label">Precio</label>
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                   </div>
-                  <p class="formulario__input-error">La capacidad debe ser el número, sin puntos y sin texto</p> 
-                  <!-- Mensaje de error | Da indicaciones para una capacidad correcta 
-                  <p id="error-capacidadMessage"></p> -->
-                </div>
-
-                <!-- Grupo: Status -->
-                <div class="input-wrap formulario__grupo">
-                  <div class="formulario__grupo-input">
-                    <select name="nuevo_status" id="nuevo_status">
-                      <option value="" SELECTED DISABLED>Status</option>
-                      <option value="Disponible">Disponible</option>
-                      <option value="No disponible">No disponible</option>
-                      <option value="Reparando">Reparando</option>
-                    </select>
-                    <label for="nuevo_status"></label>
-                  </div>
+                  <p class="formulario__input-error">El precio debe ser el número, sin puntos y sin texto</p> 
                 </div>
        
                 <!-- Mensajes del apartado - Nuevo Camión -->
@@ -186,15 +147,15 @@ include "../../../../controller/conexion.php";
 
                 <?php if (isset($_GET['success']) && $_GET['success'] == 3) { ?>
                   <div class="success-message">
-                    Camión editado correctamente
+                    Flete editado correctamente
                   </div>
                 <?php } ?>
 
                 <!-- Mensajes de error de campos -->
                 <div id="error-camposMessage" class="error-camposMessage" style="display: none;"></div>
                 
-                <input type="hidden" name="id_camion" value="<?php echo $id; ?>">
-                <input type="hidden" name="hidden" value="7" />
+                <input type="hidden" name="id_flete" value="<?php echo $id; ?>">
+                <input type="hidden" name="hidden" value="9" />
                 <input type="submit" class="sign-btn" value="Actualizar" />
 
                 <p class="text">
