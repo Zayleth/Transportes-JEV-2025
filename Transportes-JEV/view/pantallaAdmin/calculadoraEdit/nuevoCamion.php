@@ -1,3 +1,12 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
+    header("location: ../../../index.html"); // Redirige
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

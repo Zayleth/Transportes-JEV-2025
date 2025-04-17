@@ -1,6 +1,11 @@
 <?php 
-session_start();
 include "../../../../controller/conexion.php";
+session_start();
+
+if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
+    header("location: ../../../../index.html"); // Redirige
+    exit;
+}
 ?>
 
 
@@ -184,12 +189,6 @@ include "../../../../controller/conexion.php";
                   </div>
                 <?php } ?>
 
-                <?php if (isset($_GET['success']) && $_GET['success'] == 3) { ?>
-                  <div class="success-message">
-                    Camión editado correctamente
-                  </div>
-                <?php } ?>
-
                 <!-- Mensajes de error de campos -->
                 <div id="error-camposMessage" class="error-camposMessage" style="display: none;"></div>
                 
@@ -198,9 +197,7 @@ include "../../../../controller/conexion.php";
                 <input type="submit" class="sign-btn" value="Actualizar" />
 
                 <p class="text">
-                  Un motor que impulsa tus proyectos y fortalece tu visión ¡Felicidades!
-                  <!-- <a href="#">Terms of Services</a> and
-                  <a href="#">Privacy Policy</a> -->
+                  Asegúrate de completar correctamente los campos antes de enviar
                 </p>
               </div>
             </form>

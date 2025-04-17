@@ -10,7 +10,7 @@ switch ($hidden) {
     case 1:
 
         // Obtener y limpiar los datos enviados por el formulario
-        $nombre = trim($_POST['nombre']);
+        $nombre = ucwords(strtolower(trim($_POST['nombre']))); // Convierte la str en minuscula y coloca las primeras letras mayúsculas
         $correo = filter_var(trim($_POST['correo']), FILTER_SANITIZE_EMAIL);
         $password = trim($_POST['password']);
         
@@ -202,8 +202,8 @@ switch ($hidden) {
         session_start();
 
         // Obtener y limpiar los datos enviados por el formulario
-        $origen = trim($_POST['origen']);
-        $destino = trim($_POST['destino']);
+        $origen = ucwords(strtolower(trim($_POST['origen'])));
+        $destino = ucwords(strtolower(trim($_POST['destino'])));
         $precio = trim($_POST['capacidad']);
 
         // Expresiones regulares para validación
@@ -264,7 +264,7 @@ switch ($hidden) {
         $resultado = mysqli_stmt_execute($stmt);
 
         if (!$resultado) {
-            error_log("Error al ejecutar la consulta de inserción: " . mysqli_error($conex));
+            // error_log("Error al ejecutar la consulta de inserción: " . mysqli_error($conex));
             header("location:../view/pantallaAdmin/calculadoraEdit/nuevoFlete.php?errorF=2");
             exit;
         }
@@ -281,8 +281,8 @@ switch ($hidden) {
         
         session_start();
         // Obtener y limpiar los datos enviados por el formulario
-        $modelo = trim($_POST['origen']);
-        $tipo = trim($_POST['destino']);
+        $modelo = ucwords(strtolower(trim($_POST['origen'])));
+        $tipo = ucwords(strtolower(trim($_POST['destino'])));
         $capacidad = trim($_POST['capacidad']);
 
         // Expresiones regulares para validación
@@ -331,36 +331,32 @@ switch ($hidden) {
     case 7:
         // Obtener el ID desde la URL con seguridad
         $id_camion_mod = isset($_POST['id_camion']) ? intval($_POST['id_camion']) : 0;            
-
+        $nuevo_status = isset($_POST['nuevo_status']) && trim($_POST['nuevo_status']) !== "" ? trim($_POST['nuevo_status']) : "Disponible";
+    
         // Asegurarse de que el ID es válido antes de ejecutar la consulta
         if ($id_camion_mod > 0) {
             // Consulta preparada
             $query = "UPDATE camiones SET modelo_camion = ?, tipo_camion = ?, capacidad_camion = ?, status_camion = ? WHERE id_camion = ?";
             
             $stmt = $conex->prepare($query);
-            $stmt->bind_param("ssisi", $origen, $destino, $capacidad, $nuevo_status, $id_camion_mod);
+            $stmt->bind_param("ssisi", ucwords(strtolower(trim($origen))), ucwords(strtolower(trim($destino))), $capacidad, $nuevo_status, $id_camion_mod);
             $stmt->execute();
-        
-            // Verificar si la actualización fue exitosa
-            if ($stmt->affected_rows > 0) {
-                header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");
-                exit;
-            } else {
-                header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");
-                exit;
-                //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
-            }
-        
+            
+            // Redireccionar según el resultado
+            $redirectUrl = ($stmt->affected_rows > 0) 
+                ? "../view/pantallaAdmin/navbarOptions/camionesRegistrados.php" 
+                : "../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=1";
+    
             $stmt->close();
-        } else {  
-            header("location:../view/pantallaAdmin/navbarOptions/camionesRegistrados.php");  
-            exit;      
-            //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2");
+        } else {
+            $redirectUrl = "../view/pantallaAdmin/navbarOptions/editarC-F-U/editarCamion.php?errorF=2";
         }
-        
+    
         $conex->close();
+        header("location: $redirectUrl");
         exit;
         break;
+    
     
     // FUNCION ADMIN CAMIONES REGISTRADOS - NAVBAR OPTIONS - ELIMINAR CAMIÓN
     case 8:
@@ -390,7 +386,7 @@ switch ($hidden) {
             $query = "UPDATE viajes SET origen_viaje = ?, destino_viaje = ?, precio_viaje = ? WHERE id_viaje = ?";
             
             $stmt = $conex->prepare($query);
-            $stmt->bind_param("ssii", $origen, $destino, $capacidad, $id_flete_mod); /* NOTA: el nombre de las variables es para optimizar el filtro de datos JS */
+            $stmt->bind_param("ssii", ucwords(strtolower(trim($origen))), ucwords(strtolower(trim($destino))), $capacidad, $id_flete_mod); /* NOTA: el nombre de las variables es para optimizar el filtro de datos JS */
             $stmt->execute();
         
             // Verificar si la actualización fue exitosa
@@ -398,18 +394,15 @@ switch ($hidden) {
                 header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");
                 exit;
             } else {
-                header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");
+                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=1"); 
                 exit;
-                //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=2");
             }
-        
-            $stmt->close();
-        } else {
-            header("location:../view/pantallaAdmin/navbarOptions/fletesExistentes.php");    
+        } else {  
+            header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=2"); 
             exit;      
-            //header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarFlete.php?errorF=2");
         }
         
+        $stmt->close();        
         $conex->close();
         exit;
         break;
@@ -440,6 +433,7 @@ switch ($hidden) {
 
         if ($verificar_cargo->num_rows === 0) {
             header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=1");
+            // echo "Error: Asegurate de rellenar correctamente los campos.";
             // echo "Error: El cargo seleccionado no es válido.";
             exit;
         }
@@ -450,14 +444,14 @@ switch ($hidden) {
             // Consulta preparada
             $query = $query = "UPDATE usuarios SET nombre_usuario = ?, id_cargo = ? WHERE id_usuario = ?";
             $stmt = $conex->prepare($query);
-            $stmt->bind_param("sii", $nuevo_nombre_user, $nuevo_cargo, $id_usuario_mod);
+            $stmt->bind_param("sii", ucwords(strtolower(trim($nuevo_nombre_user))), $nuevo_cargo, $id_usuario_mod);
             $stmt->execute();
         
             if ($stmt->affected_rows > 0) {
                 header("location:../view/pantallaAdmin/navbarOptions/usuariosRegistrados.php");
                 exit;
             } else {
-                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=2");
+                header("location:../view/pantallaAdmin/navbarOptions/editarC-F-U/editarUsuario.php?errorF=1");
                 exit;
             }
 
@@ -486,8 +480,8 @@ switch ($hidden) {
 
         $stmt->close();
         break;
-}       
 
+}       
 
 ?>
 

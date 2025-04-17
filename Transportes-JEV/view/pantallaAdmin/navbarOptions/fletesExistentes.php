@@ -1,6 +1,11 @@
 <?php 
-session_start();
 include "../../../controller/conexion.php";
+session_start();
+
+if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
+    header("location: ../../../index.html"); // Redirige
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,24 +56,30 @@ include "../../../controller/conexion.php";
                   <h3 class="sidebar__title">ADMIN</h3>
 
                   <div class="sidebar__list">
+                        
+                        <a href="../calculadoraFletesAdmin/calculadora.php" class="sidebar__link">
+                              <i class="ri-pie-chart-2-fill"></i>
+                              <span>Calculadora de Fletes</span>
+                        </a>
+                  
                         <a href="camionesRegistrados.php" class="sidebar__link">
-                        <i class="ri-pie-chart-2-fill"></i>
-                        <span>Camiones</span>
+                              <i class="ri-pie-chart-2-fill"></i>
+                              <span>Camiones</span>
                         </a>
                         
                         <a href="fletesExistentes.php" class="sidebar__link active-link">
-                        <i class="ri-wallet-3-fill"></i>
-                        <span>Fletes</span>
+                              <i class="ri-wallet-3-fill"></i>
+                              <span>Fletes</span>
                         </a>
 
                         <a href="usuariosRegistrados.php" class="sidebar__link">
-                        <i class="ri-calendar-fill"></i>
-                        <span>Usuarios</span>
+                              <i class="ri-calendar-fill"></i>
+                              <span>Usuarios</span>
                         </a>
 
                         <a href="" class="sidebar__link">
-                        <i class="ri-arrow-up-down-line"></i>
-                        <span>Calendario</span>
+                              <i class="ri-arrow-up-down-line"></i>
+                              <span>Calendario</span>
                         </a>
 
                   </div>
@@ -103,10 +114,12 @@ include "../../../controller/conexion.php";
                   </i>
                   </button>
 
-                  <button class="sidebar__link">
-                  <i class="ri-logout-box-r-fill"></i>
-                  <span>Cerrar Sesión</span>
-                  </button>
+                  <a href="../../../controller/cerrarSesion.php">
+                        <button class="sidebar__link">
+                        <i class="ri-logout-box-r-fill"></i>
+                        <span>Cerrar Sesión</span>
+                        </button>
+                  </a>
             </div>
          </div>
    </nav>
