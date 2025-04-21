@@ -15,7 +15,7 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styless.css">
 
   <!--
     - google font link
@@ -136,7 +136,7 @@
       -->
 
       <section class="section hero" aria-label="home" id="home"
-        style="background-image: url('./assets/images/hero-banner.jpg')">
+        style="background-image: url('./assets/images/7.png')">
         <div class="container">
 
           <div class="hero-content">
@@ -146,7 +146,7 @@
             </h2>
 
             <p class="hero-text">
-              Comprometidos a ofrecer soluciones de excelencia, haciendo de tu destino nuestra prioridad
+              Comprometidos a ofrecer soluciones de calidad, haciendo de tu destino nuestra prioridad
             </p>
 
             <a href="./view/pantallaCliente/calculadoraFletes/calculadora.php" class="btn-outline">Cotiza tu flete</a>
@@ -154,7 +154,7 @@
             <!-- <img src="./assets/images/hero-shape.png" width="116" height="116" loading="lazy"
               class="hero-shape shape-1"> -->
 
-            <img src="./assets/images/guia-virtual.webp" width="210" height="150" loading="lazy"
+            <img src="./assets/images/mujerr.webp" width="160" height="150" loading="lazy" style="border-radius: 9rem;"
               class="hero-shape shape-2"> <!-- imagen del chatbot -->
 
           </div>
@@ -258,7 +258,7 @@
 
             </ul>
 
-            <a href="./view/pantallaCliente/calculadoraFletes/calculadora.php" class="btn">Cotiza aquí</a>
+            <a href="./view/pantallaCliente/calculadoraFletes/calculadora.php" class="btn">Cotiza gratis</a>
 
           </div>
 
@@ -462,7 +462,7 @@
 
 
   <!-- 
-    - #CONTACTO - FORMULARIO
+    - #CONTACTO - FORMULARIO CONTACTO
   -->
 
   <section class="container ubicacion" id="ubicacion" aria-label="contacto">
@@ -481,31 +481,31 @@
 
         <form action="">
           <div class="form-container">
-            <!-- Sección izquierda -->
-            <div class="left">
-              <div>
-                <div class="form-group">
-                  <h1 class="h1-consultas-extras">¿Te gustaría consultar algo más?</h1>
+
+            <div class="form-group">
+              <h1 class="h1-consultas-extras">¿Te gustaría consultar algo más?</h1>
+            </div>
+
+            <div class="container-left-right">
+              <!-- Sección izquierda -->
+              <div class="left">
+                  <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Tu nombre">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Correo</label>
+                    <input type="email" id="email" placeholder="Tu correo" required>
+                  </div>
+
+                <!-- Div de dirección -->
+                <div class="direccion">
+                  <p>📍 Ubicación: Guarenas, Zona Industrial</p>
                 </div>
+              </div> <!-- /left -->
+
                 
-                <div class="form-group">
-                  <label for="name">Nombre</label>
-                  <input type="text" id="name" placeholder="Tu nombre">
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Correo</label>
-                  <input type="email" id="email" placeholder="Tu correo" required>
-                </div>
-              </div>
-
-              <!-- Div de dirección -->
-              <div class="direccion">
-                <p>📍 Ubicación: Guarenas, Zona Industrial</p>
-              </div>
-            </div> <!-- /left -->
-
-              
               <!-- Sección derecha -->
               <div class="right">
                   <div class="form-group">
@@ -514,6 +514,9 @@
                   </div>
                   <button type="submit" class="send-preguntas">Enviar</button>
               </div>
+
+            </div>
+
           </div>
         </form>
     </div>
@@ -673,20 +676,20 @@
   
   <!-- Chatbot 2.0 --> 
   <script type="text/javascript">
-    (function(d, t) {
-        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-        v.onload = function() {
-          window.voiceflow.chat.load({
-            verify: { projectID: '67be808def0dac1a30ed762e' },
-            url: 'https://general-runtime.voiceflow.com',
-            versionID: 'production', 
-            voice: { 
-              url: "https://runtime-api.voiceflow.com" 
-            }
-          });
-        }
-        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-    })(document, 'script');
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '67be808def0dac1a30ed762e' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production', 
+              voice: { 
+                url: "https://runtime-api.voiceflow.com" 
+              }
+            });
+          }
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+      })(document, 'script');
   </script>
 
   
