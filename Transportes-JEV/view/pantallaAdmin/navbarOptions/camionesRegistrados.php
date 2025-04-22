@@ -193,7 +193,7 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
                                                 <p class="status cancelled"><?php echo $row['status_camion']; ?></p>
                                           
                                           <?php
-                                          } else if (strtolower($string) === "reparando") { ?>
+                                          } else if (strtolower($string) === "mantenimiento") { ?>
                                                 <p class="status pending"><?php echo $row['status_camion']; ?></p>
                                           
                                           <?php

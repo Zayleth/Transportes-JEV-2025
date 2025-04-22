@@ -70,28 +70,6 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
                     </tbody>
                 </table>
             </div>
-            
-
-            <!-- <div class="images-wrapper">             
-              <img src="./assets/img/image2.png" class="image img-2" alt="" />
-              <img src="./assets/img/image3.png" class="image img-3" alt="" />
-            </div> 
-
-            <div class="text-slider">
-              <div class="text-wrap">
-                <div class="text-group">
-                  <h2>En cada punto del país</h2>
-                  <h2>Monitorea en tiempo real</h2>
-                  <h2>¡Únete al equipo!</h2>
-                </div>
-              </div> 
-
-              <div class="bullets">
-                <span class="active" data-value="1"></span>
-                <span data-value="2"></span>
-                <span data-value="3"></span>
-              </div>
-            </div>-->
           </div>
       
         
@@ -170,7 +148,7 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
                       <option value="" SELECTED DISABLED>Status</option>
                       <option value="Disponible">Disponible</option>
                       <option value="No disponible">No disponible</option>
-                      <option value="Reparando">Reparando</option>
+                      <option value="Mantenimiento">Mantenimiento</option>
                     </select>
                     <label for="nuevo_status"></label>
                   </div>

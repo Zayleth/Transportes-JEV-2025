@@ -28,7 +28,7 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="estilos.css">
 
-      <title>ADMIN Calculadora de fletes</title>
+      <title>Calculadora de fletes</title>
    </head>
    
    <body>
