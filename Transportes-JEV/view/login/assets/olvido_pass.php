@@ -96,9 +96,9 @@
 
           <div class="carousel">
             <div class="images-wrapper">
-              <img src="../assets/img/image1.png" class="image img-1 show" alt="" />
-              <img src="../assets/img/image2.png" class="image img-2" alt="" />
-              <img src="../assets/img/image3.png" class="image img-3" alt="" />
+              <img src="../assets/img/image1.webp" class="image img-1 show" alt="" style="margin: auto; height: 450px; width: 450px;"/>
+              <img src="../assets/img/image2.webp" class="image img-2" alt="" />
+              <img src="../assets/img/image3.webp" class="image img-3" alt="" style="margin: auto;"/>
             </div>
 
             <div class="text-slider">

@@ -18,7 +18,7 @@ include "../../../controller/conexion.php";
     <!-- 
         - custom css link
     -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styless.css">
 
     <!--
     - google font link
@@ -28,49 +28,76 @@ include "../../../controller/conexion.php";
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+
+
+    <style>
+    </style>
 </head>
-<body>
 
-  <nav>
-    <div class="wrapper_nav">
+<body id="top">
 
-        <div class="logo">
-          <div class="settings_icon">
-            <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
-          </div>
-          
-          <a href="">
-            <img src="" alt="" width="50" height="50">
-          </a>
-        </div>
 
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Transporte</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Registro</a></li>
-            <li><a href="#">Ubicación</a></li>
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <h1>
+        <a href="#" class="logo">Transportes JEV</a>
+      </h1>
+
+      <nav class="navbar" data-navbar>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>Home</span></div>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#transportes" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>Transporte</span></div>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#servicios" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>Servicios</span></div>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="./view/login/index.php" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>Registro</span></div>
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#ubicacion" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>Ubicación</span></div>
+            </a>
+          </li>
+
         </ul>
 
-        <div class="header-right">
-            <div class="home_icon">
-              <a href="../../../index.html"><ion-icon name="home-outline"></ion-icon></a>
-            </div>
+      </nav>
 
-            <div class="user_icon">
-              <a href="../../login/index.php"><ion-icon name="person"></ion-icon></a>
-            </div>
-
-            <div class="flecha_icon">
-              <a href="../../../index.html"><ion-icon name="arrow-undo-outline"></ion-icon></a>
-            </div>
-
+      <div class="header-contact">
+        <div class="contact-icon">
+          <a href="https://bit.ly/Transportes-JEV"><ion-icon name="call-outline"></ion-icon></a>
         </div>
+      </div>
+
+      <div class="overlay" data-nav-toggler data-overlay></div>
 
     </div>
-  </nav>
+  </header>
 
-  
+ 
   <!-- 
   - # CALCULADORA DE FLETES
   -->
@@ -202,7 +229,7 @@ include "../../../controller/conexion.php";
           </div>
             
           <div class="field">
-            <label for="">-</label>
+            <label for=""> ‍</label>
               <button type="submit" id="cotizar-flete">COTIZAR FLETE</button>
           </div>
         </div>
@@ -298,7 +325,7 @@ include "../../../controller/conexion.php";
               Al ponerte en contacto con nosotros, analizamos tus necesidades, seleccionamos el transporte ideal 
               y planificamos la ruta más eficiente.</p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
           </div>
@@ -316,7 +343,7 @@ include "../../../controller/conexion.php";
               Garantizando que el desarrollo siga lo establecido.
             </p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
 
@@ -335,7 +362,7 @@ include "../../../controller/conexion.php";
               y se recoge retroalimentación del cliente.
             </p>
 
-            <a href="#" class="card-btn" aria-label="Read more">
+            <a class="card-btn" aria-label="Read more">
               <ion-icon name="arrow-forward"></ion-icon>
             </a>
 
@@ -490,6 +517,11 @@ include "../../../controller/conexion.php";
 
 
 
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>
