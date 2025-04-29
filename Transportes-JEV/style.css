@@ -349,7 +349,7 @@ body {
 }
 
 .navbar-list span {
-  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, transform 0.5s ease-in-out;
   font-size: 19px; /* Tamaño inicial */
   display: inline-block; /* Evita que el crecimiento afecte otros elementos */
 }
@@ -435,10 +435,28 @@ body {
   left: 30px;
 }
 
+/*
 .hero .shape-2 {
   bottom: 80px;
   right: 10px;
   position: fixed;
+}
+*/
+
+.hero .shape-2 {
+  bottom: 80px;
+  right: 6px;
+  position: fixed;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero .shape-2 {
+    bottom: 10%;
+    right: 2%;
+    width: 120px;
+    height: auto;
+  }
 }
 
 @keyframes move {
@@ -698,62 +716,6 @@ body {
 }
 
 .blog-card .card-text { margin-block: 15px; }
-
-
-
-
-
-/*-----------------------------------*\
-  #NEWSLETTER
-\*-----------------------------------*/
-
-.newsletter { background-color: var(--dark-orange); }
-
-.newsletter .img-holder {
-  background-color: transparent;
-  margin-block-end: 20px;
-  max-width: max-content;
-}
-
-.newsletter .section-title { margin-block-end: 20px; }
-
-.email-field {
-  background-color: var(--white);
-  color: var(--eerie-black);
-  font-size: var(--fs-9);
-  height: 65px;
-  padding-inline: 20px;
-  margin-block-end: 10px;
-  outline: none;
-  transition: var(--transition);
-}
-
-.email-field:focus { box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.4); }
-
-.newsletter-btn {
-  background-color: var(--indigo-dye);
-  color: var(--white);
-  font-family: var(--ff-oswald);
-  font-weight: var(--fw-700);
-  padding: 8px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* .w-100 { width: 100%; } */
-
-.newsletter-btn:hover {
-  background-color: var(--green-blue-crayola);
-  transform: scale(1.1); /* Efecto de crecimiento al pasar el mouse */
-}
-
-
-
-
-
 
 /*-----------------------------------*\
   #CONTACT-SECTION

@@ -350,6 +350,17 @@ body {
   color: #fff;
 }
 
+.navbar-list span {
+  transition: transform 0.5s ease-in-out;
+  font-size: 19px;
+  display: inline-block;
+}
+
+.navbar-list span:hover {
+  transform: scale(1.2);
+}
+
+
 .navbar-top {
   display: flex;
   justify-content: space-between;

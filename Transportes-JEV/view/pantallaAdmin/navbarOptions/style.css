@@ -399,12 +399,9 @@ body.dark-theme {
 
 /* TABLAS STYLES */
 * {
-  margin: 0;
-  padding: 0;
-
   box-sizing: border-box;
-  font-family: sans-serif;
 }
+
 @media print {
 .table, .table__body {
 overflow: visible;
@@ -420,17 +417,19 @@ width: auto !important;
 
 body {
   min-height: 100vh;
-  background: url(images/fondo-2.jpg) center / cover;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-image: url(images/fondo-2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 main.table {
-  width: 82vw;
+  width: 80vw;
   height: 90vh;
   background-color: #fff5;
-  margin-left: 45px;
 
   backdrop-filter: blur(7px);
   box-shadow: 0 .4rem .8rem #0005;

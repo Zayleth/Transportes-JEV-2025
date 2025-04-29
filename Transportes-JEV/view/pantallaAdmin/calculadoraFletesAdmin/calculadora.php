@@ -60,9 +60,9 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
                   </div>
 
                   <div class="sidebar__info">
-                  <h3>Transportes JEV</h3>
-                  <span>Jhonny Vegas</span><br>
-                  <span class="sidebar__title_name">Admin: <?php echo $_SESSION['usuario']; ?></span>
+                        <h3>Transportes JEV</h3>
+                        <span>Jhonny Vegas</span><br>
+                        <span class="sidebar__title_name">Admin: <?php echo $_SESSION['usuario']; ?></span>
                   </div>
             </div>
 

@@ -18,7 +18,7 @@ include "../../../controller/conexion.php";
     <!-- 
         - custom css link
     -->
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
 
     <!--
     - google font link
@@ -53,31 +53,25 @@ include "../../../controller/conexion.php";
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <a href="#home" class="navbar-link" data-nav-link>
+            <a href="../../../index.html" class="navbar-link" data-nav-link>
               <div class="header-span"><span>Home</span></div>
             </a>
           </li>
 
           <li class="navbar-item">
-            <a href="#transportes" class="navbar-link" data-nav-link>
-              <div class="header-span"><span>Transporte</span></div>
+            <a href="#como-trabajamos" class="navbar-link" data-nav-link>
+              <div class="header-span"><span>¿Cómo trabajamos?</span></div>
             </a>
           </li>
 
           <li class="navbar-item">
-            <a href="#servicios" class="navbar-link" data-nav-link>
-              <div class="header-span"><span>Servicios</span></div>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="./view/login/index.php" class="navbar-link" data-nav-link>
+            <a href="../../login/index.php" class="navbar-link" data-nav-link>
               <div class="header-span"><span>Registro</span></div>
             </a>
           </li>
 
           <li class="navbar-item">
-            <a href="#ubicacion" class="navbar-link" data-nav-link>
+            <a href="../../../index.html" class="navbar-link" data-nav-link>
               <div class="header-span"><span>Ubicación</span></div>
             </a>
           </li>
@@ -293,7 +287,7 @@ include "../../../controller/conexion.php";
   - #FEATURE
   -->
 
-  <section class="section feature" aria-label="feature">
+  <section class="section feature" aria-label="feature" id="como-trabajamos">
     <div class="container">
 
       <div class="title-wrapper">
@@ -301,12 +295,6 @@ include "../../../controller/conexion.php";
         <div>
           <p class="section-subtitle">¿Cómo trabajamos?</p>
           <h2 class="h2 section-title">Simple y efectivo en solo 3 pasos</h2>
-
-          <!-- <p class="section-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever
-            since the when an
-            printer took.
-          </p> -->
         </div>
 
         <a href="#" class="btn">Subir</a>

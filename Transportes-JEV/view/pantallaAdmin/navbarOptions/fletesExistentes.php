@@ -18,7 +18,7 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
 
       <!--=============== CSS ===============-->
-      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="style.css">
 
       <title>Fletes Existentes</title>
    </head>
@@ -46,8 +46,9 @@ if (!isset($_SESSION['id_cargo']) || $_SESSION['id_cargo'] != 1) {
                   </div>
 
                   <div class="sidebar__info">
-                  <h3>Transportes JEV</h3>
-                  <span>Jhonny Vegas</span>
+                        <h3>Transportes JEV</h3>
+                        <span>Jhonny Vegas</span><br>
+                        <span class="sidebar__title_name">Admin: <?php echo $_SESSION['usuario']; ?></span>
                   </div>
             </div>
 
