@@ -1,2 +1,3 @@
-/config/*
+/config/
 /vendor/
+googlesheets_tabla.php

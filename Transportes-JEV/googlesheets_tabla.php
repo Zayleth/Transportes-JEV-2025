@@ -9,7 +9,7 @@ $logFile = 'error_log.txt';
 try {
     // Configuración del Cliente API
     $client = new Google_Client();
-    $client->setAuthConfig('credenciales.json');
+    $client->setAuthConfig('config/credenciales.json');
     $client->setScopes(['https://www.googleapis.com/auth/spreadsheets.readonly']);
 
     // Conexión al servicio de Google Sheets

@@ -1,3 +1,6 @@
 Proceso completado a las 2025-05-01 00:04:26
 Proceso completado a las 2025-05-01 00:07:45
 Error: No se encontraron datos en la hoja de cálculo.
+Error: file "credenciales.json" does not exist
+Error: {"error":"invalid_grant","error_description":"Invalid JWT Signature."}
+Error: {"error":"invalid_grant","error_description":"Invalid JWT Signature."}
